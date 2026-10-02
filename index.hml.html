@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"><title>Teevora – T-shirt Store</title>
+<style>
+:root{--bg:#fafafa;--c:#fff;--t:#0a0a0a;--m:#6b6b6b;--p:#111111;--b:#e5e5e5;--g:#0a0a0a;--r:#b3261e}
+*{box-sizing:border-box}body{margin:0;font:15px/1.6 -apple-system,system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--t);padding-bottom:64px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none;cursor:pointer}h1,h2,h3{margin:.3em 0;letter-spacing:-.02em;font-weight:700}
+header{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--b);display:flex;gap:12px;align-items:center;padding:12px 20px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:19px;color:var(--t);letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:8px}.logo-ic{width:24px;height:16px;color:var(--t)}.logo-ic svg{width:100%;height:100%;display:block}header nav{display:flex;gap:20px;margin-left:auto}header nav a{color:var(--m);font-weight:500;font-size:14px;transition:.15s}header nav a:hover{color:var(--t)}
+header input{flex:1;min-width:140px;max-width:340px}
+main{max-width:1150px;margin:auto;padding:16px}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--b);border-radius:8px;font:inherit;background:#fff;margin:4px 0;color:var(--t)}input:focus,select:focus,textarea:focus{outline:none;border-color:var(--t)}
+button,.btn{background:var(--t);color:#fff;border:1px solid var(--t);border-radius:8px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer;display:inline-block;transition:.15s;letter-spacing:.01em}button:hover,.btn:hover{background:#000;border-color:#000}
+.btn.o{background:#fff;color:var(--t);border:1px solid var(--t)}.btn.o:hover{background:var(--t);color:#fff}.btn.d{background:#fff;color:var(--r);border-color:var(--r)}.btn.d:hover{background:var(--r);color:#fff}.btn.g{background:#fff;color:var(--t);border:1px solid var(--t)}button:disabled{opacity:.35;cursor:not-allowed}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.card{background:var(--c);border:1px solid var(--b);border-radius:14px;overflow:hidden;transition:.25s}.grid .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.08);border-color:#ccc}
+.card img.pi{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#f0f0f0}.pad{padding:14px}.box{background:var(--c);border:1px solid var(--b);border-radius:14px;padding:18px;margin:14px 0}
+.hero{background:linear-gradient(135deg,#0a0a0a,#2b2b2b);color:#fff;border-radius:18px;padding:40px 24px;margin-bottom:20px;position:relative;overflow:hidden}.hero h1{font-size:32px;position:relative}.hero p{color:#cfcfcf;position:relative}.hero .inner{position:relative}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:6px 0}.chip{padding:8px 16px;background:#fff;border:1px solid var(--b);border-radius:99px;white-space:nowrap;cursor:pointer;font-size:13px;font-weight:500;transition:.15s}.chip.on,.chip:hover{background:var(--t);color:#fff;border-color:var(--t)}
+.av{width:28px;height:28px;border-radius:50%;vertical-align:middle;margin-right:6px;object-fit:cover;border:1px solid var(--b)}.m{color:var(--m);font-size:13px}.bad{background:var(--t);color:#fff;border-radius:6px;padding:1px 8px;font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase}.ok{color:#1a7a3c;font-weight:600}.er{color:var(--r)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.thumbs img{width:60px;height:60px;border-radius:8px;cursor:pointer;border:2px solid var(--b);margin-right:6px}
+.szb{padding:8px 14px;border:1px solid var(--b);border-radius:8px;background:#fff;color:var(--t);cursor:pointer;font-weight:500;transition:.15s}.szb.on{border-color:var(--t);background:var(--t);color:#fff}.szb.x{opacity:.35;text-decoration:line-through}
+table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid var(--b);text-align:left;font-size:14px}.sc{overflow-x:auto}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}.ban{height:150px;border-radius:14px;background-size:cover;background-color:#111}
+.mb{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--b);display:none;justify-content:space-around;padding:8px 4px}.mb a{font-size:10px;text-align:center;color:var(--m);display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:600;letter-spacing:.02em;text-transform:uppercase}.mb a.on,.mb a:hover{color:var(--t)}.mb svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.6}
+#toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%);background:#0a0a0a;color:#fff;padding:10px 20px;border-radius:8px;display:none;z-index:9;font-size:13px;letter-spacing:.01em}
+.note{background:#f5f5f5;border:1px solid #d8d8d8;border-radius:8px;padding:10px 12px;font-size:12.5px;margin:8px 0;color:#444}
+.deco{position:absolute;pointer-events:none;color:#fff;opacity:.13}.deco svg{width:100%;height:auto;display:block}.deco.dark{color:#111;opacity:.07}
+.box.entry{position:relative;overflow:hidden;padding-top:26px}
+.pricebox{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.pricebox s{color:var(--m);font-weight:400;font-size:13px}.pricebox b{font-size:17px}
+.szb s{color:inherit;opacity:.55;font-weight:400}
+.ptag{display:inline-flex;align-items:baseline;gap:6px}
+.tag-off{background:#111;color:#fff;border-radius:5px;padding:1px 7px;font-size:11px;font-weight:700;letter-spacing:.02em}
+.so{display:none!important}body.seller header nav a.so{display:inline!important}body.seller .mb a.so{display:flex!important}
+.waf{position:fixed;right:18px;bottom:24px;width:56px;height:56px;border-radius:50%;background:#25D366;display:none;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:8;transition:.2s}.waf:hover{transform:scale(1.08)}.waf svg{width:32px;height:32px;fill:#fff}
+.sl{font-size:13px;font-weight:600;border:1px solid var(--t);border-radius:8px;padding:6px 12px;white-space:nowrap}body.seller .sl{display:none}
+@media(max-width:720px){.two{grid-template-columns:1fr}header nav{display:none}.sl{margin-left:auto}.mb{display:flex}.waf{bottom:80px}}
+/* ===== PREMIUM THEME ===== */
+:root{--bg:#f7f4ee;--t:#14120f;--m:#77716a;--b:#e7e1d6;--gold:#b08d4f;--gold2:#dcc28c}
+body{font-family:Inter,-apple-system,system-ui,Segoe UI,Roboto,sans-serif}
+h1,h2,h3,.logo{font-family:'Playfair Display',Georgia,serif}
+header{background:rgba(247,244,238,.86);padding:14px 22px}.logo{letter-spacing:.24em;font-size:18px}
+header nav a:hover{color:var(--gold)}.sl{border-radius:99px;border-color:var(--gold);color:var(--t);padding:7px 16px}.sl:hover{background:var(--gold);color:#fff}
+button,.btn{border-radius:99px;padding:11px 24px}button:hover,.btn:hover{background:var(--gold);border-color:var(--gold)}
+.btn.o,.btn.g,button.o{background:transparent;color:var(--t)}.btn.o:hover,.btn.g:hover,button.o:hover{background:var(--t);border-color:var(--t);color:#fff}
+.card,.box{border-radius:20px;box-shadow:0 1px 2px rgba(20,18,15,.04),0 10px 28px rgba(20,18,15,.05)}.grid .card:hover{box-shadow:0 18px 40px rgba(20,18,15,.12);border-color:var(--gold2)}
+.hero{background:radial-gradient(120% 150% at 88% 0,#3d3020 0,#14120f 58%);border:1px solid #2a241a;padding:68px 30px;border-radius:24px}
+.hero h1{font-size:40px;font-weight:600;line-height:1.15}.hero h1:after{content:"";display:block;width:60px;height:2px;margin-top:18px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.chip{background:transparent}.chip.on,.chip:hover{background:var(--t);border-color:var(--t)}.bad,.tag-off{background:var(--gold)}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(176,141,79,.15)}
+.ban{position:relative;overflow:hidden;height:200px}.ban img{width:100%;height:100%;object-fit:cover;display:block}
+.bigav{width:96px;height:96px;border-radius:50%;object-fit:cover;border:4px solid #fff;box-shadow:0 6px 18px rgba(0,0,0,.18);background:#fff}
+.lock{max-width:400px;margin:56px auto;text-align:center;padding:38px 28px}
+.lk{width:60px;height:60px;border-radius:50%;margin:0 auto 10px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--gold2),var(--gold));box-shadow:0 8px 20px rgba(176,141,79,.4)}.lk svg{width:26px;height:26px}
+.pw{position:relative}.pw input{padding-right:56px}.pw a{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--m)}
+@media(max-width:720px){.hero{padding:44px 22px}.hero h1{font-size:30px}.ban{height:150px}}
+.pimgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:10px 0}.pimgs img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px}.yt{position:relative;padding-top:56.25%;margin:10px 0}.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:14px}
+.hs{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.hs>*{scroll-snap-align:start;flex:0 0 auto}.hs .card{width:172px}.hs>.box{width:min(300px,84vw);margin:0}
+.grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}.card .pad{padding:10px;font-size:13px;line-height:1.45}
+@media(min-width:900px){.hs .card{width:200px}.grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}}
+#mainimg{max-width:460px}
+.citem{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--b)}.oi{width:72px;height:72px;object-fit:cover;border-radius:12px;flex:none}.orow{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+.steps{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.steps span{font-size:11px;padding:4px 10px;border-radius:99px;background:#eee;color:#999}.steps span.on{background:var(--t);color:#fff}.steps span.cur{background:var(--gold);color:#fff;font-weight:600}
+main{padding-bottom:40px}
+.citem button,.orow button{padding:5px 12px;font-size:14px}.citem .d{padding:6px 10px;font-size:13px;flex:none}
+.bdg{position:absolute;top:-4px;right:2px;min-width:16px;height:16px;border-radius:99px;background:var(--gold);color:#fff;font-size:10px;display:none;align-items:center;justify-content:center;padding:0 4px}
+@media(max-width:720px){main{padding-bottom:150px}header{flex-wrap:nowrap;gap:8px;padding:10px 12px}header #q{min-width:0;flex:1}.logo{font-size:14px;letter-spacing:.14em}.sl{padding:6px 10px;font-size:12px;margin-left:0}.waf{width:46px;height:46px;right:12px;bottom:84px}.box{padding:14px}button,.btn{padding:10px 18px;font-size:14px}.row{gap:8px}}
+/* ===== FANCY LAYER ===== */
+body{background:radial-gradient(900px 500px at 8% -5%,rgba(220,194,140,.28),transparent 60%),radial-gradient(800px 500px at 100% 20%,rgba(176,141,79,.12),transparent 55%),#f7f4ee;background-attachment:fixed}
+main>*{animation:up .55s cubic-bezier(.2,.7,.2,1) both}main>*:nth-child(2){animation-delay:.05s}main>*:nth-child(3){animation-delay:.1s}main>*:nth-child(4){animation-delay:.15s}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.fl{animation:flt 6s ease-in-out infinite}.fl2{animation:flt 8s ease-in-out infinite reverse}
+.deco{color:var(--gold2);opacity:.38}.deco svg{stroke-width:1.2}
+.hero{box-shadow:0 30px 60px -28px rgba(20,18,15,.55),inset 0 0 0 1px rgba(220,194,140,.25)}
+.hero .inner{max-width:62%}.eyebrow{display:inline-block;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold2);margin-bottom:12px;padding:5px 12px;border:1px solid rgba(220,194,140,.45);border-radius:99px}
+main>h2{display:flex;align-items:center;gap:14px;margin:26px 0 10px}main>h2:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold2),transparent)}
+.divider{display:flex;justify-content:center;margin:22px 0 6px;color:var(--gold)}.divider .dv{width:min(300px,70%);opacity:.8}.divider svg{width:100%;height:auto;display:block}
+.foot-art{display:flex;align-items:flex-end;justify-content:center;gap:16px;color:var(--gold);opacity:.75;margin-bottom:12px}.foot-art svg{width:100%;height:auto;display:block}
+.about{position:relative;overflow:hidden;text-align:center;padding:30px 22px}.abt-art{display:flex;align-items:flex-end;justify-content:center;gap:14px;color:var(--gold);margin-bottom:6px}.ab1{width:74px}.ab2{width:150px}.ab3{width:84px}.abt-art svg{width:100%;height:auto;display:block}
+.rules{list-style:none;padding:0;margin:16px auto 22px;max-width:520px;text-align:left;counter-reset:r}.rules li{counter-increment:r;position:relative;padding:14px 14px 14px 52px;margin:10px 0;background:linear-gradient(135deg,#fff,#fbf8f1);border:1px solid var(--b);border-radius:16px;line-height:1.5;box-shadow:0 6px 18px rgba(20,18,15,.05)}
+.rules li:before{content:counter(r);position:absolute;left:14px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--gold2),var(--gold))}
+.lock{position:relative}.lock-art{width:150px;margin:-4px auto 8px;color:var(--gold)}.lock-art svg{width:100%;height:auto;display:block}
+button,.btn{background:linear-gradient(135deg,#1f1c17,#3b342a);box-shadow:0 6px 16px rgba(20,18,15,.18);transition:.25s}button:hover,.btn:hover{background:linear-gradient(135deg,var(--gold),var(--gold2));transform:translateY(-1px)}
+.btn.o,.btn.g,button.o{background:transparent;box-shadow:none}.btn.o:hover,.btn.g:hover,button.o:hover{background:var(--t)}
+.card{overflow:hidden}.card img.pi{transition:transform .6s}.card:hover img.pi{transform:scale(1.06)}.card b{font-weight:600}
+.card .pad>b:not(.m){color:var(--gold)}
+input,select,textarea{border-radius:12px;background:#fffdf9}
+header{backdrop-filter:blur(14px);box-shadow:0 8px 24px -16px rgba(20,18,15,.25)}.logo-ic{color:var(--gold)}
+.mb{background:rgba(255,253,249,.88);backdrop-filter:blur(16px);box-shadow:0 -10px 30px -18px rgba(20,18,15,.3)}.mb a.on,.mb a:hover{color:var(--gold)}
+#toast{background:linear-gradient(135deg,#1f1c17,#3b342a);border:1px solid var(--gold);border-radius:99px}
+.hs::-webkit-scrollbar{height:5px}.hs::-webkit-scrollbar-thumb{background:var(--gold2);border-radius:9px}
+@media(max-width:720px){.hero .inner{max-width:100%}.hero .deco:first-child{width:78px!important;opacity:.28}.hero .fl:last-of-type{display:none}}
+</style></head><body>
+<header><a class="logo" href="#/home"><span class="logo-ic" id="logoIc"></span>TEEVORA</a><input id="q" placeholder="Search t-shirts…" oninput="doSearch(this.value)">
+<nav><a href="#/home">Home</a><a href="#/cats">Categories</a><a href="#/orders">My Orders</a><a href="#/cart">Cart <b id="cc"></b></a><a class="so" href="#/dash/overview">Profile</a></nav><a class="sl" href="#/seller-login">Seller Login</a></header>
+<main id="app"></main><div class="mb">
+<a href="#/home"><svg viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/></svg>Home</a>
+<a href="#/cats"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>Categories</a>
+<a href="#/search"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.7-4.7"/></svg>Search</a>
+<a href="#/orders"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 9h6M9 13h6"/></svg>Orders</a>
+<a href="#/cart" style="position:relative"><svg viewBox="0 0 24 24"><path d="M4 6h2l2 12h10l2-9H7"/><circle cx="10" cy="20" r="1"/><circle cx="16" cy="20" r="1"/></svg><span id="cc2" class="bdg"></span>Cart</a>
+<a class="so" href="#/dash/overview"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c1.2-3.8 4-6 7.5-6s6.3 2.2 7.5 6"/></svg>Profile</a>
+</div><div id="toast"></div>
+<a id="waf" class="waf" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<script>
+'use strict';
+/* ========== UTIL ========== */
+const CATS=['Sports','Horror','Anime','Fantasy','Gaming','Movies','Music','Streetwear','Oversized','Casual','Funny','Minimal','Art','Others'];
+const SIZES=['S','M','L','XL','XXL'];
+/* Premium line-art motifs (leaf / pigeon / olive branch) used as subtle decoration only. */
+const DECO_LEAF=`<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M60 112C38 90 18 63 24 33 40 44 54 54 60 80 66 54 80 44 96 33 102 63 82 90 60 112Z"/><path d="M60 110V48"/></svg>`;
+const DECO_BIRD=`<svg viewBox="0 0 160 100" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 68C28 40 54 29 80 44 90 24 116 14 150 19 130 29 120 39 118 49 136 54 150 64 156 80 130 70 104 68 89 75 69 85 44 88 23 77 39 74 54 67 59 57 39 61 21 64 8 68Z"/></svg>`;
+const DECO_BRANCH=`<svg viewBox="0 0 300 70" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 55C60 36 120 64 180 40 220 26 260 30 300 12"/><path d="M52 48c-5-10-3-18 5-24"/><path d="M112 51c-5-10-3-18 5-24"/><path d="M172 42c-5-10-3-18 5-24"/><path d="M232 28c-5-10-3-18 5-24"/></svg>`;
+const DECO_RABBIT=`<svg viewBox="0 0 100 135" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M36 56C25 36 25 9 36 7c11 1 13 28 11 49"/><path d="M64 56C75 36 75 9 64 7c-11 1-13 28-11 49"/><path d="M36 47C32 33 32 20 36 14M64 47C68 33 68 20 64 14"/><ellipse cx="50" cy="80" rx="23" ry="25"/><circle cx="41" cy="76" r="1.8" fill="currentColor"/><circle cx="59" cy="76" r="1.8" fill="currentColor"/><path d="M46.5 85h7l-3.5 4z"/><path d="M50 89v3.5M50 92.5c-2.5 3-6 2.5-7.5.5M50 92.5c2.5 3 6 2.5 7.5.5"/><path d="M33 87l-17-4M33 91l-17 4M67 87l17-4M67 91l17 4"/><path d="M33 98c-9 9-11 24-5 33h44c6-9 4-24-5-33"/><path d="M42 131v-9M58 131v-9M50 104c-3 5-3 11 0 17"/></svg>`,DECO_CAT=`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 42L19 11l23 15"/><path d="M77 42l4-31-23 15"/><path d="M25 35l-2-12 11 7M75 35l2-12-11 7"/><path d="M23 42c-4 11-3 25 3 34 6 9 15 14 24 14s18-5 24-14c6-9 7-23 3-34-8-9-18-13-27-13s-19 4-27 13z"/><path d="M33 52c3-4 9-4 12 0-3 4-9 4-12 0zM55 52c3-4 9-4 12 0-3 4-9 4-12 0z"/><path d="M39 49v6M61 49v6"/><path d="M46.5 63h7l-3.5 4.5z"/><path d="M50 67.5c-2 4-6 4.5-8 2M50 67.5c2 4 6 4.5 8 2"/><path d="M29 66l-19-4M29 70l-19 3M71 66l19-4M71 70l19 3"/></svg>`,DECO_SITCAT=`<svg viewBox="0 0 90 120" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 34L27 12l15 8M60 34l3-22-15 8"/><path d="M30 34c-4 6-4 14 0 20 4 5 9 7 15 7s11-2 15-7c4-6 4-14 0-20-4-5-10-7-15-7s-11 2-15 7z"/><path d="M37 41c2-2 5-2 7 0-2 2-5 2-7 0zM47 41c2-2 5-2 7 0-2 2-5 2-7 0z"/><path d="M43.5 47h3l-1.5 2z"/><path d="M33 47l-11-2M33 50l-11 2M57 47l11-2M57 50l11 2"/><path d="M36 58c-8 10-12 26-10 42 1 9 8 14 19 14s18-5 19-14c2-16-2-32-10-42"/><path d="M64 96c14-2 22-12 18-26-3-9-12-10-14-3"/><path d="M38 114v-9M52 114v-9"/></svg>`,DECO_OLIVE=`<svg viewBox="-8 -8 276 86" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 52C70 40 150 66 256 18"/><g transform="translate(24.2 49.4) rotate(-42)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(24.2 49.4) rotate(33)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(45.4 48.5) rotate(-38)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(45.4 48.5) rotate(36)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(67.5 48.4) rotate(-37)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(67.5 48.4) rotate(38)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><path d="M67.5 48.4L67.4 57.4"/><ellipse cx="67.4" cy="60.9" rx="2.6" ry="3.6"/><g transform="translate(90.7 48.7) rotate(-37)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(90.7 48.7) rotate(38)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(115.0 48.5) rotate(-39)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(115.0 48.5) rotate(36)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(140.5 47.2) rotate(-42)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(140.5 47.2) rotate(33)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><path d="M140.5 47.2L141.2 56.2"/><ellipse cx="141.2" cy="59.7" rx="2.6" ry="3.6"/><g transform="translate(167.3 44.2) rotate(-46)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(167.3 44.2) rotate(29)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(195.4 38.8) rotate(-51)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(195.4 38.8) rotate(24)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(225.0 30.3) rotate(-56)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><g transform="translate(225.0 30.3) rotate(18)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g><path d="M225.0 30.3L227.9 38.8"/><ellipse cx="227.9" cy="42.3" rx="2.6" ry="3.6"/><g transform="translate(256.0 18.0) rotate(-24)"><path d="M0 0C4.5 -4.6 11.2 -4.6 15 0C11.2 4.6 4.5 4.6 0 0z"/><path d="M1 0H13.5" stroke-width=".8"/></g></svg>`,DECO_OLIVE_V=`<svg viewBox="-8 -8 86 216" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M30 196C10 140 56 80 36 6"/><g transform="translate(25.3 174.8) rotate(-133)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><g transform="translate(25.3 174.8) rotate(-58)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><g transform="translate(25.3 153.1) rotate(-123)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><g transform="translate(25.3 153.1) rotate(-48)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><g transform="translate(28.4 130.8) rotate(-117)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><g transform="translate(28.4 130.8) rotate(-42)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><path d="M28.4 130.8L37.2 132.4"/><ellipse cx="37.2" cy="135.9" rx="2.6" ry="3.6"/><g transform="translate(33.0 107.8) rotate(-115)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><g transform="translate(33.0 107.8) rotate(-41)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><g transform="translate(37.6 83.9) rotate(-118)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><g transform="translate(37.6 83.9) rotate(-43)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><g transform="translate(40.7 59.0) rotate(-123)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><g transform="translate(40.7 59.0) rotate(-49)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><path d="M40.7 59.0L49.7 59.7"/><ellipse cx="49.7" cy="63.2" rx="2.6" ry="3.6"/><g transform="translate(40.7 33.1) rotate(-132)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><g transform="translate(40.7 33.1) rotate(-57)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g><g transform="translate(36.0 6.0) rotate(-105)"><path d="M0 0C4.2 -4.6 10.5 -4.6 14 0C10.5 4.6 4.2 4.6 0 0z"/><path d="M1 0H12.6" stroke-width=".8"/></g></svg>`;
+const divider=()=>`<div class="divider"><span class="dv">${DECO_OLIVE}</span></div>`;
+const ART=[DECO_RABBIT,DECO_CAT,DECO_SITCAT];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const inr=n=>'₹'+Number(n).toLocaleString('en-IN',{maximumFractionDigits:2});
+const uid=()=>Math.random().toString(36).slice(2,9);
+const $=id=>document.getElementById(id);
+function ph(text,hue){const shade=90+((hue||0)%3)*3; // subtle tonal variation, monochrome palette only
+const s=`<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='400' height='400' fill='hsl(0,0%,${shade}%)'/><path d='M120 90l50-20q30 25 60 0l50 20 50 60-45 25v165H115V175l-45-25z' fill='none' stroke='#111' stroke-width='2.5'/><text x='200' y='380' font-size='13' letter-spacing='2' text-anchor='middle' fill='#111' font-family='sans-serif' font-weight='600'>${text.replace(/[<&>]/g,'').toUpperCase()}</text></svg>`;return 'data:image/svg+xml;utf8,'+encodeURIComponent(s)}
+const pimgs=p=>(p.imgs&&p.imgs.length)?p.imgs:[ph(p.cat,p.hue)];
+function compressImg(file,max=800,q=.75){return new Promise((res,rej)=>{const r=new FileReader();r.onerror=rej;r.onload=()=>{const im=new Image();im.onerror=rej;im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',q))};im.src=r.result};r.readAsDataURL(file)})}
+async function readImgs(input,have){const out=[];for(const f of [...input.files]){if(have+out.length>=4){toast('Maximum 4 photos');break}if(!f.type.startsWith('image/')){toast('Only image files allowed');continue}try{out.push(await compressImg(f))}catch(e){toast('Could not read '+f.name)}}input.value='';return out}
+let newImgs=[];
+async function pickImgs(input){newImgs=newImgs.concat(await readImgs(input,newImgs.length));showPrev()}
+function rmImg(i){newImgs.splice(i,1);showPrev()}
+function showPrev(){const b=$('pprev');if(b)b.innerHTML=newImgs.map((u,i)=>`<span style="position:relative;display:inline-block"><img src="${u}" alt=""><a onclick="rmImg(${i})" style="position:absolute;top:-6px;right:0;background:#111;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;text-align:center;line-height:18px">✕</a></span>`).join('')}
+async function setPhotos(pid,input){const a=await readImgs(input,0);if(!a.length)return;productService.get(pid).imgs=a;storageService.save();toast('Photos updated');route()}
+function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',2600)}
+/* ========== STORAGE SERVICE ==========
+ Demo persistence only. Production: replace with a real database (via REST/GraphQL API).
+ Images should live in cloud object storage (S3/Cloudinary), NOT localStorage (5MB limit). */
+const storageService={key:'teeverse_v2',
+ load(){try{return JSON.parse(localStorage.getItem(this.key))}catch(e){return null}},
+ save(){try{localStorage.setItem(this.key,JSON.stringify(DB))}catch(e){toast('Storage full – use smaller images')}}};
+/* No demo data: the site starts empty. Shops and T-shirts appear only after sellers create them. */
+function seed(){return{shops:[],customers:[],cart:[],orders:[],reviews:[],follows:[],posts:[],products:[],categories:[],session:{}}}
+const OWNER={email:atob('c2FhcnBhbjQxMUBnbWFpbC5jb20='),wa:'918240095460',name:"Saarpan's Store",username:'saarpan'};
+function sha256(s){s=unescape(encodeURIComponent(s));const rr=(v,a)=>(v>>>a)|(v<<(32-a));let mp=Math.pow,mw=mp(2,32),i,j,res='',w=[],bl=s.length*8,h=[],k=[],pc=0,comp={};
+for(let c=2;pc<64;c++){if(!comp[c]){for(i=0;i<313;i+=c)comp[i]=c;h[pc]=(mp(c,.5)*mw)|0;k[pc++]=(mp(c,1/3)*mw)|0}}
+s+='\x80';while(s.length%64-56)s+='\x00';
+for(i=0;i<s.length;i++){j=s.charCodeAt(i);w[i>>2]|=j<<((3-i)%4)*8}
+w[w.length]=((bl/mw)|0);w[w.length]=bl;
+for(j=0;j<w.length;){let ww=w.slice(j,j+=16),oh=h;h=h.slice(0,8);
+for(i=0;i<64;i++){let w15=ww[i-15],w2=ww[i-2],a=h[0],e=h[4];
+let t1=h[7]+(rr(e,6)^rr(e,11)^rr(e,25))+((e&h[5])^(~e&h[6]))+k[i]+(ww[i]=(i<16)?ww[i]:(ww[i-16]+(rr(w15,7)^rr(w15,18)^(w15>>>3))+ww[i-7]+(rr(w2,17)^rr(w2,19)^(w2>>>10)))|0);
+let t2=(rr(a,2)^rr(a,13)^rr(a,22))+((a&h[1])^(a&h[2])^(h[1]&h[2]));
+h=[(t1+t2)|0].concat(h);h[4]=(h[4]+t1)|0}
+for(i=0;i<8;i++)h[i]=(h[i]+oh[i])|0}
+for(i=0;i<8;i++)for(j=3;j+1;j--){let b=(h[i]>>(j*8))&255;res+=((b<16)?0:'')+b.toString(16)}return res}
+/* SELLER SECURITY: the password is stored only as a salted SHA-256 hash (never plain text). Default password is permanent until you change it in Seller > Settings. */
+const SALT='tv411::',DEFAULT_PW_HASH='',pwHash=p=>sha256(SALT+p);
+/* OPTIONAL: paste your CallMeBot API key here so login alerts work from ANY device (see Seller > Settings for setup). */
+const NOTIFY_KEY='';
+let DB=storageService.load()||seed();if(!DB.categories)DB.categories=[];
+/* Single-seller store: exactly one shop (the owner) always exists; nobody else can sell. */
+(function ensureOwner(){let s=DB.shops[0];
+ if(!s)s={id:'s'+uid(),name:OWNER.name,username:OWNER.username,bio:'Welcome to my shop!',hue:210,banner:40};
+ if(!s.email)s.email=OWNER.email;if(!s.wa)s.wa=OWNER.wa;delete s.pw;
+ DB.shops=[s];DB.products=DB.products.filter(p=>p.shopId==s.id);DB.orders=DB.orders.filter(o=>o.shopId==s.id);DB.posts=DB.posts.filter(p=>p.shopId==s.id);
+ if(DB.session.seller&&DB.session.seller!=s.id)DB.session={};storageService.save()})();
+/* ========== SERVICES ========== */
+const authService={ // DEMO ONLY: localStorage auth is NOT secure. Production: hashed passwords (argon2/bcrypt), server sessions/JWT, email verification, rate limiting.
+ pwScore(p){let s=0;if(p.length>=8)s++;if(/[A-Z]/.test(p)&&/[a-z]/.test(p))s++;if(/\d/.test(p))s++;if(/[^A-Za-z0-9]/.test(p))s++;return s},
+ registerSeller(f){if(DB.shops.length)return'Seller registration is closed';if(!f.name.trim())return'Shop name required';if(!/^[a-z0-9_]{3,20}$/i.test(f.username))return'Username: 3-20 letters/numbers/_';
+  if(!/^\S+@\S+\.\S+$/.test(f.email))return'Valid Gmail/email is required';if(!/^\d{10,13}$/.test(f.wa))return'WhatsApp number required (10-13 digits, with country code e.g. 919876543210)';
+  if(this.pwScore(f.pw)<3)return'Weak password: use 8+ chars with upper, lower, number/symbol';
+  if(DB.shops.some(s=>s.username.toLowerCase()==f.username.toLowerCase()))return'Username already taken';
+  if(DB.shops.some(s=>s.email==f.email))return'Email already registered';
+  const s={id:'s'+uid(),name:f.name.trim(),username:f.username,bio:'Welcome to my shop!',wa:f.wa,email:f.email,pw:f.pw,hue:Math.random()*360|0,banner:Math.random()*360|0};
+  DB.shops.push(s);DB.session={seller:s.id};storageService.save();return null},
+
+ loginSeller(pw){const now=Date.now();let L;try{L=JSON.parse(localStorage.getItem('tv_lock'))}catch(e){}L=L||{n:0,t:0};if(L.t>now)return'Too many attempts. Try again in '+Math.ceil((L.t-now)/1000)+'s';
+  const s=DB.shops[0];if(pwHash(pw.trim())!==(s.pwh||DEFAULT_PW_HASH)){L.n++;if(L.n>=5){L.t=now+60000;L.n=0}try{localStorage.setItem('tv_lock',JSON.stringify(L))}catch(e){}return'Incorrect password'}
+  try{localStorage.removeItem('tv_lock')}catch(e){}DB.session={...DB.session,seller:s.id};storageService.save();notifyLogin();return null},
+ changePassword(cur,n1,n2){const s=DB.shops[0];if(pwHash(cur.trim())!==(s.pwh||DEFAULT_PW_HASH))return'Current password is wrong';if(n1.trim().length<8)return'New password needs 8+ characters';if(n1!==n2)return'New passwords do not match';s.pwh=pwHash(n1.trim());storageService.save();return null},
+ registerCustomer(name,email,pw){if(!name.trim()||!/^\S+@\S+\.\S+$/.test(email)||pw.length<6)return'Enter name, valid email and 6+ char password';
+  if(DB.customers.some(c=>c.email==email))return'Account exists – please login';DB.customers.push({name:name.trim(),email,pw});DB.session={...DB.session,customer:email};storageService.save();return null},
+ loginCustomer(email,pw){const c=DB.customers.find(x=>x.email==email&&x.pw==pw);if(!c)return'Invalid email or password';DB.session={...DB.session,customer:email};storageService.save();return null},
+ logout(){DB.session={};storageService.save()},
+ requestReset(){/* PRODUCTION: POST /auth/forgot → backend emails a single-use expiring link to the VERIFIED address. Never ask for the user's Gmail password. */}};
+const me=()=>DB.customers.find(c=>c.email==DB.session.customer);
+const mySeller=()=>DB.shops.find(s=>s.id==DB.session.seller);
+const shopOf=id=>DB.shops.find(s=>s.id==id);
+const productService={get:id=>DB.products.find(p=>p.id==id),
+ list(f={}){return DB.products.filter(p=>p.published&&(!f.cat||p.cat==f.cat)&&(!f.shopId||p.shopId==f.shopId)&&(!f.size||(p.sizes[f.size]&&p.sizes[f.size].stock>0))&&(!f.q||[p.name,p.desc,p.cat,shopOf(p.shopId)?.name,shopOf(p.shopId)?.username].join(' ').toLowerCase().includes(f.q.toLowerCase())))},
+ minPrice:p=>Math.min(...Object.values(p.sizes).filter(x=>x.stock>0||true).map(x=>x.price)),
+ totalStock:p=>Object.values(p.sizes).reduce((a,x)=>a+x.stock,0),
+ create(sh,f){if(!f.name.trim())return'Product name required';const sizes={};
+  SIZES.forEach(s=>{if(f['on'+s]){const pr=+f['pr'+s],st=+f['st'+s],mr=+f['mr'+s]||0;if(!(pr>0))throw'Invalid price for '+s;if(!Number.isInteger(st)||st<0)throw'Invalid stock for '+s;if(mr&&mr<=pr)throw'Original price (before discount) must be higher than the sale price for '+s;sizes[s]={price:pr,stock:st,mcost:+f['mc'+s]||0,dcost:+f['dc'+s]||0,...(mr?{mrp:mr}:{})}}});
+  if(!Object.keys(sizes).length)throw'Select at least one size';
+  DB.products.push({id:'p'+uid(),shopId:sh.id,name:f.name.trim(),desc:f.desc,cat:f.cat,sizes,bulkMin:+f.bm||0,bulkPct:+f.bp||0,imgs:f.imgs||[],published:true,hue:Math.random()*360|0});storageService.save();return null},
+ bestDeal(p){let best=null;for(const z of SIZES){const x=p.sizes[z];if(x&&x.mrp&&x.mrp>x.price){const pct=Math.round((1-x.price/x.mrp)*100);if(!best||pct>best.pct)best={size:z,mrp:x.mrp,price:x.price,pct}}}return best},
+ calc(p,size,qty){const o=p.sizes[size].price,sub=o*qty,pct=p.bulkMin&&p.bulkPct&&qty>=p.bulkMin?p.bulkPct:0,d=sub*pct/100;return{unit:o,sub,pct,disc:d,final:sub-d}}};
+const shopService={followers:id=>DB.follows.filter(f=>f.shop==id).length,
+ following:e=>DB.follows.filter(f=>f.user==e).length};
+/* Seller-defined categories with a per-size price adjustment template (e.g. Oversized: XL +50, XXL +100).
+   These are convenience templates only — final prices are always set explicitly per product. */
+const categoryService={
+ list:shopId=>DB.categories.filter(c=>c.shopId==shopId),
+ get:id=>DB.categories.find(c=>c.id==id),
+ create(shopId,f){if(!f.name.trim())return'Category name required';
+  if(DB.categories.some(c=>c.shopId==shopId&&c.name.toLowerCase()==f.name.trim().toLowerCase()))return'You already have a category with this name';
+  const adj={};SIZES.forEach(z=>adj[z]=+f['adj'+z]||0);
+  DB.categories.push({id:'c'+uid(),shopId,name:f.name.trim(),adj});storageService.save();return null},
+ remove(id){DB.categories=DB.categories.filter(c=>c.id!=id);storageService.save()}};
+const socialService={follow(id){const u=DB.session.customer;if(!u)return needLogin();const i=DB.follows.findIndex(f=>f.user==u&&f.shop==id);i>=0?DB.follows.splice(i,1):DB.follows.push({user:u,shop:id});storageService.save();route()},
+ like(pid){const u=DB.session.customer;if(!u)return needLogin();const p=DB.posts.find(x=>x.id==pid),i=p.likes.indexOf(u);i>=0?p.likes.splice(i,1):p.likes.push(u);storageService.save();route()},
+ comment(pid,text){const c=me();if(!c)return needLogin();if(!text.trim())return;DB.posts.find(x=>x.id==pid).comments.push({id:uid(),user:c.email,name:c.name,text:text.trim(),date:new Date().toISOString()});storageService.save();route()},
+ delComment(pid,cid){const p=DB.posts.find(x=>x.id==pid);p.comments=p.comments.filter(c=>c.id!=cid);storageService.save();route()}};
+const reviewService={add(pid,stars,text){const c=me();if(!c)return needLogin();if(DB.reviews.some(r=>r.pid==pid&&r.user==c.email))return toast('You already reviewed this product');
+ if(!text.trim())return toast('Write a short review');DB.reviews.push({id:uid(),pid,user:c.email,name:c.name,stars:+stars,text:text.trim(),date:new Date().toISOString()});storageService.save();route()},
+ of:pid=>DB.reviews.filter(r=>r.pid==pid),avg(pid){const r=this.of(pid);return r.length?r.reduce((a,x)=>a+x.stars,0)/r.length:0}};
+const cartService={add(pid,size,qty){const p=productService.get(pid),st=p.sizes[size]?.stock??0;if(!size)return toast('Please select a size');if(st<1)return toast('Out of stock');
+ const l=DB.cart.find(x=>x.pid==pid&&x.size==size);const n=(l?l.qty:0)+qty;if(n>st)return toast('Only '+st+' left in stock');l?l.qty=n:DB.cart.push({pid,size,qty});storageService.save();updCart();return true},
+ setQty(i,d){const l=DB.cart[i],st=productService.get(l.pid).sizes[l.size].stock;if(l.qty+d>st)return toast('Only '+st+' in stock');l.qty+=d;if(l.qty<1)DB.cart.splice(i,1);storageService.save();updCart();route()},
+ remove(i){DB.cart.splice(i,1);storageService.save();updCart();route()}};
+
+const whatsappService={buildMessage(o){const s=shopOf(o.shopId);return `NEW T-SHIRT ORDER\n\nOrder ID: ${o.id}\nSeller: ${s.name}\n\nCustomer:\nName: ${o.cust.name}\nPhone: ${o.cust.phone}\n\nProduct: ${o.pname}\nSize: ${o.size}\nQuantity: ${o.qty}\nOriginal price: ${inr(o.unit)}\nDiscount: ${o.pct?o.pct+'% for '+o.bulkMin+'+ pieces':'None'}\nDiscount amount: ${inr(o.disc)}\nFinal total: ${inr(o.final)}\n\nDelivery Address: ${o.cust.address}\nCity: ${o.cust.city}\nState: ${o.cust.state}\nPIN: ${o.cust.pin}\nNotes: ${o.cust.notes||'-'}\n\nPayment preference: ${o.payment}\nNote: No payment was taken on the website - please contact the customer to arrange payment.`},
+ /* REAL AUTOMATED BUSINESS WHATSAPP NOTIFICATIONS REQUIRE AN APPROVED WHATSAPP BUSINESS/API BACKEND.
+    This prototype only builds a click-to-chat link the user must send manually. */
+ sendOrderNotification(o,seller){return `https://wa.me/${seller.wa}?text=${encodeURIComponent(this.buildMessage(o))}`}};
+const orderService={create(cust,payment){const made=[];
+ for(const l of DB.cart){const p=productService.get(l.pid),st=p.sizes[l.size].stock;if(l.qty>st)throw`${p.name} (${l.size}): only ${st} left`}
+ for(const l of DB.cart){const p=productService.get(l.pid),c=productService.calc(p,l.size,l.qty);p.sizes[l.size].stock-=l.qty;
+  const o={id:'#'+(10000+Math.floor(Math.random()*89999)),date:new Date().toISOString(),shopId:p.shopId,pid:p.id,pname:p.name,size:l.size,qty:l.qty,unit:c.unit,pct:c.pct,bulkMin:p.bulkMin,disc:c.disc,final:c.final,payment,status:'Pending',mine:true,cust,paymentStatus:'To be arranged with seller'};DB.orders.push(o);made.push(o)}
+ DB.cart=[];storageService.save();updCart();return made},
+ updateStatus(id,s){DB.orders.find(o=>o.id==id).status=s;storageService.save()}};
+/* ========== UI HELPERS ========== */
+function needLogin(){toast('Please login/sign up as a customer first');location.hash='#/account'}
+function updCart(){const n=DB.cart.reduce((a,l)=>a+l.qty,0);$('cc').textContent=n?`(${n})`:'';const b=$('cc2');if(b){b.textContent=n;b.style.display=n?'flex':'none'}}
+const stars=n=>'★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n));
+const shopAv=s=>`<img class="av" src="${avUrl(s)}" alt="">`;
+const empty=(i,t,s,l)=>`<div class="box entry" style="text-align:center"><div class="deco dark" style="width:62px;left:50%;top:14px;transform:translateX(-50%);opacity:.22;color:var(--gold)">${ART[(t||'').length%3]}</div><h3 style="margin-top:84px">${esc(t)}</h3><p class="m">${esc(s)}</p>${l||''}</div>`;
+function card(p){const s=shopOf(p.shopId),mp=productService.minPrice(p),st=productService.totalStock(p),diff=new Set(Object.values(p.sizes).map(x=>x.price)).size>1,rc=reviewService.of(p.id).length;
+ return `<div class="card"><a href="#/p/${p.id}"><img class="pi" loading="lazy" src="${pimgs(p)[0]}" alt="${esc(p.name)}"></a><div class="pad">
+ <a href="#/shop/${s.id}">${shopAv(s)}<b>${esc(s.name)}</b></a><br><a href="#/p/${p.id}"><b>${esc(p.name)}</b></a><br>
+ <span class="m">${diff?'From ':''}</span><b>${inr(mp)}</b> ${p.bulkPct?`<span class="bad">${p.bulkPct}% off ${p.bulkMin}+</span>`:''}<br>
+ <span class="m">${esc(p.cat)}</span><br><span class="${st?'ok':'er'}">${st?(st<6?'Low stock':'In stock'):'Out of Stock'}</span></div></div>`}
+const vgrid=l=>l.length?`<div class="grid">${l.map(card).join('')}</div>`:empty('','No products found','Try a different search or category.');
+const grid=l=>l.length?`<div class="hs">${l.map(card).join('')}</div>`:empty('','No products found','Try a different search or category.');
+/* ========== VIEWS ========== */
+const V={};
+V.home=()=>{const P=productService.list();return `<div class="hero"><div class="deco fl" style="width:120px;top:14px;right:18px">${DECO_RABBIT}</div><div class="deco fl2" style="width:300px;bottom:-6px;right:-40px;opacity:.2;color:var(--gold2)">${DECO_OLIVE}</div><div class="deco fl" style="width:92px;bottom:10px;left:14px">${DECO_SITCAT}</div><div class="inner"><span class="eyebrow">T shirts design</span><h1>Find your next favorite t shirt</h1><p>Order as a guest — no account needed.</p></div></div>
+<h2>Categories</h2><div class="cats">${CATS.map(c=>`<a class="chip" href="#/cat/${c}">${c}</a>`).join('')}</div>
+<h2>Shop by Size</h2><div class="cats">${SIZES.map(z=>`<a class="chip" href="#/size/${z}">${z}</a>`).join('')}</div>
+${P.length?`<h2>Swipe to explore</h2>${grid(P)}`:empty('','No T-shirts for sale yet','New T-shirts are coming soon. Please check back later.')}
+${divider()}${upcomingHtml()}${divider()}
+${P.length||DB.posts.length?`<div class="cats" id="htabs">${htabsHtml()}</div><div id="hbody">${tabBody()}</div>`:''}<p><a class="btn o" href="#/about">How this website works</a></p>
+<footer class="m" style="padding:26px 0;text-align:center"><div class="foot-art"><span style="width:54px">${DECO_RABBIT}</span><span style="width:210px">${DECO_OLIVE}</span><span style="width:60px">${DECO_CAT}</span></div>© Teevora · T-shirts made, stocked and delivered by the seller.<br><a href="#/seller-login" style="font-size:11px;opacity:.55">Seller login</a></footer>`};
+V.cats=()=>`<h2>Categories</h2><div class="grid">${CATS.map(c=>`<a class="card pad" href="#/cat/${c}"><b>${c}</b><br><span class="m">${productService.list({cat:c}).length} products</span></a>`).join('')}</div><h2>Shop by Size</h2><div class="cats">${SIZES.map(z=>`<a class="chip" href="#/size/${z}">${z}</a>`).join('')}</div>`;
+V.cat=(c,sz)=>{sz=sz||'';return `<h2>${esc(c)}</h2><div class="cats"><a class="chip" href="#/home">All categories</a>${CATS.map(x=>`<a class="chip ${x==c?'on':''}" href="#/cat/${encodeURIComponent(x)}">${esc(x)}</a>`).join('')}</div>
+<div class="cats">${['All',...SIZES].map(z=>`<a class="chip ${(z=='All'&&!sz)||z==sz?'on':''}" href="#/cat/${encodeURIComponent(c)}/${z}">${z=='All'?'All sizes':z}</a>`).join('')}</div>
+${grid(productService.list({cat:c,size:sz&&sz!='All'?sz:''}))}`};
+V.size=sz=>`<h2>Size ${esc(sz)}</h2><p class="m">Showing t-shirts currently in stock in size ${esc(sz)}, across every category and shop.</p><div class="cats">${SIZES.map(z=>`<a class="chip ${z==sz?'on':''}" href="#/size/${z}">${z}</a>`).join('')}</div>${grid(productService.list({size:sz}))}`;
+function doSearch(v){if(location.hash.slice(0,9)!='#/search/')location.hash='#/search/'+encodeURIComponent(v);else{history.replaceState(0,0,'#/search/'+encodeURIComponent(v));V.sr(v)}}
+V.sr=q=>{const P=productService.list({q}),S=q?DB.shops.filter(s=>(s.name+s.username).toLowerCase().includes(q.toLowerCase())):[];
+ $('app').innerHTML=`<h2>Search: “${esc(q)}”</h2>${S.length?`<h3>Shops</h3><div class="grid">${S.map(shopCard).join('')}</div>`:''}<h3>T-shirts</h3>${grid(P)}`;};
+V.search=q=>{$('app').innerHTML='';V.sr(q||'')};
+V.shops=()=>DB.shops.length?`<h2>All shops</h2><div class="grid">${DB.shops.map(shopCard).join('')}</div>`:empty('','No shops yet','Shops will appear once sellers register.','');
+function shopCard(s){const f=DB.follows.some(x=>x.user==DB.session.customer&&x.shop==s.id);return `<div class="card"><a href="#/shop/${s.id}"><div class="ban" style="height:70px"><img src="${banUrl(s)}" alt=""></div></a><div class="pad"><a href="#/shop/${s.id}">${shopAv(s)}<b>${esc(s.name)}</b><br><span class="m">@${esc(s.username)}</span></a></div></div>`}
+V.p=id=>{const p=productService.get(id);if(!p)return empty('','Product not found','','');const s=shopOf(p.shopId);const first=SIZES.find(z=>p.sizes[z]&&p.sizes[z].stock>0);sel={id,size:first||'',qty:1};
+ return `<div class="two"><div><img id="mainimg" style="width:100%;border-radius:16px" src="${pimgs(p)[0]}" alt="${esc(p.name)}">${(p.imgs||[]).length>1?`<div class="thumbs" style="margin-top:8px">${p.imgs.map(u=>`<img src="${u}" onclick="$('mainimg').src=this.src" alt="">`).join('')}</div>`:''}</div>
+ <div><span class="chip">${esc(p.cat)}</span><h1>${esc(p.name)}</h1><a href="#/shop/${s.id}">${shopAv(s)}<b>${esc(s.name)}</b> <span class="m">@${esc(s.username)}</span></a>
+ <p>${esc(p.desc)}</p>
+ <b>Size</b><div class="row" id="szs">${SIZES.filter(z=>p.sizes[z]).map(z=>{const x=p.sizes[z];return `<button class="szb ${x.stock?'':'x'} ${z==sel.size?'on':''}" ${x.stock?'':'disabled'} onclick="pickSize('${z}')">${z} · ${inr(x.price)}${x.stock?'':' (Out of Stock)'}</button>`}).join('')}</div>
+ <p><b>Quantity</b> <input id="qty" type="number" min="1" value="1" style="width:90px" oninput="sel.qty=Math.max(1,+this.value||1);pricebox()"></p>
+ ${p.bulkPct?`<p class="ok">Order ${p.bulkMin}+ pieces for ${p.bulkPct}% off</p>`:''}<div id="pb" class="box"></div>
+ <div class="row"><button onclick="addToCart()">Add to Cart</button><button class="g" onclick="if(addToCart())location.hash='#/checkout'">Order Now</button><a class="btn o" href="https://wa.me/${s.wa}?text=${encodeURIComponent('Hi, I am interested in '+p.name)}" target="_blank" rel="noopener">Contact Seller (WhatsApp)</a></div></div></div>`};
+let sel={};
+function pickSize(z){sel.size=z;document.querySelectorAll('.szb').forEach(b=>b.classList.toggle('on',b.textContent.startsWith(z+' ')));pricebox()}
+function pricebox(){const b=$('pb');if(!b)return;const p=productService.get(sel.id);if(!sel.size){b.innerHTML='<span class="er">Out of Stock</span>';return}
+ const st=p.sizes[sel.size].stock;if(sel.qty>st){b.innerHTML=`<span class="er">Only ${st} in stock for size ${sel.size}</span>`;return}
+ const c=productService.calc(p,sel.size,sel.qty);b.innerHTML=`Price (${sel.size}): ${inr(c.unit)} × ${sel.qty} = ${inr(c.sub)}<br>${c.pct?`<span class="ok">Discount ${c.pct}%: −${inr(c.disc)}</span><br>`:''}<b style="font-size:18px">Total ${inr(c.final)}</b> <span class="m">(${st} left)</span>`}
+function addToCart(){return cartService.add(sel.id,sel.size,sel.qty)&&(toast('Added to cart'),true)}
+V.cart=()=>{if(!DB.cart.length)return empty('','Your cart is empty','Add some t-shirts!','<a class="btn" href="#/home">Continue shopping</a>');let tot=0;
+ const rows=DB.cart.map((l,i)=>{const p=productService.get(l.pid),c=productService.calc(p,l.size,l.qty);tot+=c.final;return `<div class="citem"><img class="oi" src="${pimgs(p)[0]}" alt=""><div style="flex:1"><b>${esc(p.name)}</b><br><span class="m">Size ${l.size} · ${esc(p.cat)} · ${esc(shopOf(p.shopId).name)}</span><br><span class="m">${inr(c.unit)} each${p.bulkPct?` · ${p.bulkPct}% off on ${p.bulkMin}+`:''}</span><div class="row" style="margin-top:6px"><button class="o" onclick="cartService.setQty(${i},-1)">−</button> ${l.qty} <button class="o" onclick="cartService.setQty(${i},1)">+</button><b style="margin-left:auto">${inr(c.final)}</b>${c.pct?` <span class="ok">(−${c.pct}%)</span>`:''}</div></div><button class="d" onclick="cartService.remove(${i})">✕</button></div>`}).join('');
+ return `<h2>Cart</h2><div class="box">${rows}<h3>Total: ${inr(tot)}</h3><div class="row"><a class="btn o" href="#/home">Continue shopping</a><a class="btn" href="#/checkout">Checkout</a><a class="btn g" target="_blank" rel="noopener" href="${cartWaLink()}">Order on WhatsApp</a></div></div>`};
+V.orders=()=>{const l=DB.orders.filter(o=>o.mine).reverse();if(!l.length)return empty('','No orders yet','Orders you place on this device appear here.','<a class="btn" href="#/home">Start shopping</a>');
+ return `<h2>My Orders</h2>${l.map(o=>{const p=productService.get(o.pid),s=shopOf(o.shopId)||DB.shops[0];return `<div class="box"><div class="orow"><img class="oi" src="${p?pimgs(p)[0]:ph('',0)}" alt=""><div><b>${esc(o.pname)}</b><br><span class="m">${o.id} · ${new Date(o.date).toLocaleDateString()}</span><br>Size ${o.size} × ${o.qty}</div></div>${stepBar(o.status)}<p class="m">Price ${inr(o.unit)} × ${o.qty} = ${inr(o.unit*o.qty)}${o.pct?`<br><span class="ok">Discount ${o.pct}%: −${inr(o.disc)}</span>`:''}<br><b>Total ${inr(o.final)}</b> · ${esc(o.payment)}</p><p class="m">Deliver to: ${esc(o.cust.name)}, ${esc(o.cust.phone)}<br>${esc(o.cust.address)}, ${esc(o.cust.city)}, ${esc(o.cust.state)} ${esc(o.cust.pin)}</p><a class="btn g" target="_blank" rel="noopener" href="${whatsappService.sendOrderNotification(o,s)}">Send order to seller WhatsApp</a></div>`}).join('')}`};
+V.checkout=()=>{if(!DB.cart.length)return V.cart();return `<h2>Checkout (guest allowed)</h2><div class="box"><input id="cn" placeholder="Full name"><input id="cp" placeholder="Phone (10 digits)" inputmode="numeric"><textarea id="ca" placeholder="Full address"></textarea><input id="cy" placeholder="City"><input id="cs" placeholder="State"><input id="cz" placeholder="PIN code (6 digits)" inputmode="numeric"><input id="cx" placeholder="Delivery instructions (optional)">
+ <div class="note"><b>Please note:</b> This website is only for placing orders — no payment is taken here. Choose how you would like to pay and the seller will contact you to arrange payment.</div>
+ <b>How would you like to pay?</b><label><input type="radio" name="pay" value="COD" checked style="width:auto"> Cash on Delivery (COD)</label><label><input type="radio" name="pay" value="Online" style="width:auto"> Online Payment</label><p id="err" class="er"></p><button class="g" onclick="placeOrder()">Confirm Order</button></div>`};
+function placeOrder(){cleanCart();if(!DB.cart.length){toast('Your cart is empty');location.hash='#/cart';return}
+const g=id=>$(id).value.trim(),cust={name:g('cn'),phone:normPhone(g('cp')),address:g('ca'),city:g('cy'),state:g('cs'),pin:g('cz').replace(/\s/g,''),notes:g('cx')},pay=document.querySelector('[name=pay]:checked').value,e=$('err');
+ if(!cust.name)return showErr('Enter your name');if(!/^[6-9]\d{9}$/.test(cust.phone))return showErr('Enter a valid 10-digit phone number');if(!cust.address)return showErr('Address required');if(!cust.city||!cust.state)return showErr('City and state required');if(!/^\d{6}$/.test(cust.pin))return showErr('PIN must be 6 digits');
+ 
+ try{const os=orderService.create(cust,pay=='COD'?'Cash on Delivery (COD)':'Online Payment');lastOrders=os.map(o=>o.id);location.hash='#/success'}catch(x){showErr(String(x))}}
+let lastOrders=[];
+V.success=()=>`<div class="box" style="text-align:center"><h2>Order placed successfully</h2><p class="m">Thank you! Tap the WhatsApp button below to send your order details to the seller. The seller will contact you to confirm your order and arrange payment.</p></div>${lastOrders.map(id=>{const o=DB.orders.find(x=>x.id==id),s=shopOf(o.shopId);return `<div class="box"><b>${o.id}</b> · ${esc(o.pname)} (${o.size}) ×${o.qty} · ${inr(o.final)}<br><a class="btn g" href="${whatsappService.sendOrderNotification(o,s)}" target="_blank" rel="noopener">Send Order to Seller WhatsApp</a><p class="m">Opens WhatsApp with your order details ready to send.</p></div>`}).join('')}<a class="btn" href="#/orders">View my orders</a> <a class="btn o" href="#/home">Back to shop</a>`;
+const ytId=u=>{const m=String(u||'').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([\w-]{11})/);return m?m[1]:''};
+function postHtml(p){const s=shopOf(p.shopId),pr=p.pid&&productService.get(p.pid),own=DB.session.seller==p.shopId;
+ return `<div class="box">${p.upcoming?'<span class="bad" style="float:right">Upcoming</span>':''}<a href="#/shop/${s.id}">${shopAv(s)}<b>${esc(s.name)}</b></a> <span class="m">${new Date(p.date).toLocaleDateString()}</span>${p.text?`<p>${esc(p.text)}</p>`:''}${(p.imgs&&p.imgs.length)?`<div class="pimgs">${p.imgs.map(u=>`<img src="${u}" alt="">`).join('')}</div>`:''}${p.yt?`<div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/${p.yt}" allowfullscreen loading="lazy" title="Video"></iframe></div>`:''}${pr?`<a class="chip" href="#/p/${pr.id}">${esc(pr.name)}</a>`:''}${own?`<p><button class="d" onclick="delPost('${p.id}')">Delete</button></p>`:''}</div>`}
+function upcomingHtml(){const l=DB.posts.filter(p=>p.upcoming).reverse();return `<h2>Upcoming T-shirts</h2>${l.length?`<div class="hs">${l.map(postHtml).join('')}</div>`:empty('','Coming soon','New designs are on the way. Stay tuned!')}`}
+function delPost(id){if(confirm('Delete this post?')){DB.posts=DB.posts.filter(p=>p.id!=id);storageService.save();route()}}
+V.shop=id=>{const s=shopOf(id);if(!s)return empty('','Shop not found');const f=DB.follows.some(x=>x.user==DB.session.customer&&x.shop==id),ps=productService.list({shopId:id}),po=DB.posts.filter(p=>p.shopId==id).reverse(),rv=DB.reviews.filter(r=>ps.some(p=>p.id==r.pid));
+ return `<div class="ban"><img src="${banUrl(s)}" alt=""></div><div class="row" style="margin-top:-30px;padding:0 12px"><img src="${avUrl(s)}" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:4px solid #fff" alt=""><div style="flex:1;margin-top:28px"><h1>${esc(s.name)}</h1><span class="m">@${esc(s.username)} · ${ps.length} Products</span></div>
+ <a class="btn o" target="_blank" rel="noopener" href="https://wa.me/${s.wa}">WhatsApp</a></div><p>${esc(s.bio)}</p>
+ <h2>Products</h2>${grid(ps)}<h2>Posts</h2>${po.map(postHtml).join('')||empty('','No posts yet','')}`};
+V.following=()=>{const u=DB.session.customer;if(!u)return empty('','Login required','Sign in to follow shops.','<a class="btn" href="#/account">Login / Sign up</a>');const l=DB.follows.filter(f=>f.user==u).map(f=>shopOf(f.shop));return `<h2>My Following</h2>${l.length?`<div class="grid">${l.map(shopCard).join('')}</div>`:empty('','Not following any shops','Follow shops to see them here.','<a class="btn" href="#/shops">Browse shops</a>')}`};
+V.account=()=>{const c=me();if(c)return `<div class="box"><h2>Hi, ${esc(c.name)}</h2><p class="m">${esc(c.email)} · Following ${shopService.following(c.email)} shops</p><a class="btn" href="#/following">My Following</a> <button class="o" onclick="authService.logout();route()">Logout</button></div>`;
+ return `<div class="box"><h2>Customer account</h2><p class="m">Optional! Only needed to follow, like, comment & review. Guests can order freely.</p><input id="an" placeholder="Name (signup only)"><input id="ae" placeholder="Email"><input id="ap" type="password" placeholder="Password"><p id="err" class="er"></p><button onclick="custAuth(1)">Login</button> <button class="o" onclick="custAuth(0)">Sign up</button><div class="note">Demo auth in localStorage – not secure.</div></div><a href="#/seller-login">Are you a seller? →</a>`};
+function custAuth(login){const e=login?authService.loginCustomer($('ae').value,$('ap').value):authService.registerCustomer($('an').value,$('ae').value,$('ap').value);e?$('err').textContent=e:(toast('Welcome!'),route())}
+V['seller-login']=()=>{if(mySeller()){location.hash='#/dash/overview';return ''}
+return `<div class="lock box"><div class="lock-art">${DECO_OLIVE}</div><div class="lk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><h2>Seller Login</h2><p class="m">Enter your password to open your profile.</p><div class="pw"><input id="lp" type="password" placeholder="Password" autocomplete="off" onkeydown="if(event.key=='Enter')doLogin()"><a onclick="const i=$('lp');i.type=i.type=='password'?'text':'password'">Show</a></div><p id="err" class="er"></p><button style="width:100%" onclick="doLogin()">Login</button></div>`};
+V.forgot=()=>`<div class="box"><h2>Forgot password?</h2><p class="m">Password reset by email is not available yet. Your seller password is saved in this browser only. If you cannot log in, please contact your website developer to reset it.</p><a class="btn o" href="#/seller-login">Back to login</a></div>`;
+V['seller-reg']=()=>DB.shops.length?`<div class="box"><h2>Registration closed</h2><p class="m">This store already has a seller.</p><a class="btn" href="#/seller-login">Seller login</a></div>`:`<div class="box"><h2>Create your shop</h2><input id="rn" placeholder="Shop name"><input id="ru" placeholder="Username (unique)"><input id="re" placeholder="Gmail / email (required)"><input id="rw" placeholder="WhatsApp number with country code, e.g. 919876543210"><input id="rp" type="password" placeholder="Password" oninput="$('str').textContent=['Very weak','Weak','Fair','Good','Strong'][authService.pwScore(this.value)]"><p class="m">Strength: <b id="str">–</b></p><p id="err" class="er"></p><button onclick="const e=authService.registerSeller({name:$('rn').value,username:$('ru').value,email:$('re').value,wa:$('rw').value,pw:$('rp').value});e?$('err').textContent=e:location.hash='#/dash/overview'">Create shop</button></div>`;
+V.about=()=>`<div class="box about"><div class="abt-art"><span class="ab1">${DECO_RABBIT}</span><span class="ab2">${DECO_OLIVE}</span><span class="ab3">${DECO_CAT}</span></div><h2>How this website works</h2><ul class="rules"><li>This website is only for ordering t-shirts.</li><li>No payment happens through this website. The customer contacts the seller for payment.</li><li>There is only one seller and one shop on this website.</li><li>Only the seller can log in, using the “Seller Login” option.</li><li>Customers can order as a guest — no login required.</li></ul><a class="btn" href="#/home">Start shopping</a></div>`;
+/* ========== SELLER DASHBOARD ========== */
+V.dash=(tab)=>{const s=mySeller();if(!s)return `<div class="box"><h2>Seller area</h2><a class="btn" href="#/seller-login">Login</a></div>`;
+ const P=DB.products.filter(p=>p.shopId==s.id),O=DB.orders.filter(o=>o.shopId==s.id).reverse();
+ const nav=`<div class="tabs">${['overview','products','add','orders','profit','posts','profile','settings'].map(t=>`<a class="chip ${t==tab?'on':''}" href="#/dash/${t}">${t}</a>`).join('')}<a class="chip" href="#/shop/${s.id}">View public shop</a><a class="chip" onclick="authService.logout();location.hash='#/home';route()">Logout</a></div>`;let b='';
+ if(tab=='overview'){const st=p=>productService.totalStock(p);b=`<div class="grid">${[['Products',P.length],['Orders',O.length],['Pending',O.filter(o=>o.status=='Pending').length],['Completed',O.filter(o=>o.status=='Delivered').length],['Followers',shopService.followers(s.id)],['Est. sales',inr(O.filter(o=>o.status!='Cancelled').reduce((a,o)=>a+o.final,0))],['Est. profit',inr(O.filter(o=>o.status!='Cancelled').reduce((a,o)=>a+o.final-costOf(o),0))],['Low stock',P.filter(p=>st(p)>0&&st(p)<8).length],['Out of stock',P.filter(p=>!st(p)).length]].map(x=>`<div class="box"><span class="m">${x[0]}</span><h2>${x[1]}</h2></div>`).join('')}</div>`}
+ if(tab=='products')b=P.length?`<div class="box sc"><table>${P.map(p=>`<tr><td><img src="${pimgs(p)[0]}" alt="" style="width:56px;height:56px;object-fit:cover;border-radius:8px;float:left;margin-right:8px">${esc(p.name)}<br><span class="m">${esc(p.cat)}</span><br><label class="m" style="cursor:pointer;text-decoration:underline">Change photos<input type="file" accept="image/*" multiple style="display:none" onchange="setPhotos('${p.id}',this)"></label></td><td>${SIZES.filter(z=>p.sizes[z]).map(z=>`${z}: ${inr(p.sizes[z].price)} (<input type="number" min="0" style="width:60px" value="${p.sizes[z].stock}" onchange="setStock('${p.id}','${z}',this.value)">)<br><span class="m">Mfg ₹</span><input type="number" min="0" style="width:70px" value="${cz(p,z,'mcost')}" onchange="setCost('${p.id}','${z}','mcost',this.value)"> <span class="m">Del ₹</span><input type="number" min="0" style="width:70px" value="${cz(p,z,'dcost')}" onchange="setCost('${p.id}','${z}','dcost',this.value)">`).join('<hr style="border:0;border-top:1px solid var(--b)">')}</td><td><button class="d" onclick="delProd('${p.id}')">Delete</button></td></tr>`).join('')}</table></div>`:empty('','No products','Add your first t-shirt.','<a class="btn" href="#/dash/add">Add product</a>');
+ if(tab=='add')newImgs=[];
+ if(tab=='add')b=`<div class="box"><h2>New T-shirt</h2><input id="pn" placeholder="Product name"><textarea id="pd" placeholder="Description"></textarea><select id="pc">${CATS.map(c=>`<option>${c}</option>`).join('')}</select><input id="pcc" placeholder="Or custom category (optional)"><b>Sizes, price, stock & your private costs per piece</b>${SIZES.map(z=>`<div class="row"><label style="width:60px"><input type="checkbox" id="on${z}" style="width:auto"> ${z}</label><input id="pr${z}" type="number" placeholder="Price ₹" style="width:120px"><input id="st${z}" type="number" placeholder="Stock" style="width:100px"><input id="mc${z}" type="number" min="0" placeholder="Mfg cost ₹" style="width:110px"><input id="dc${z}" type="number" min="0" placeholder="Delivery ₹" style="width:110px"></div>`).join('')}<b>Bulk discount (optional)</b><div class="row"><input id="bm" type="number" placeholder="Min qty" style="width:120px"><input id="bp" type="number" placeholder="% off" style="width:120px"></div><b>Photos</b> <span class="m">(up to 4 · first photo is the main image)</span><input id="pimg" type="file" accept="image/*" multiple onchange="pickImgs(this)"><div id="pprev" class="thumbs"></div><p id="err" class="er"></p><button onclick="addProd()">Publish</button></div>`;
+ if(tab=='orders')b=O.length?`<div class="row" style="justify-content:space-between"><span class="m">${O.length} order(s)</span><button class="d" onclick="clearOrders()">Clear all orders</button></div><div class="box sc"><table><tr><th>ID</th><th>Customer</th><th>Item</th><th>Amount</th><th>Status</th></tr>${O.map(o=>{const cur=LEG[o.status]||o.status;return `<tr><td>${o.id}<br><span class="m">${new Date(o.date).toLocaleDateString()}</span></td><td>${esc(o.cust.name)}<br>${esc(o.cust.phone)}<br><span class="m">${esc(o.cust.address)}, ${esc(o.cust.city)}, ${esc(o.cust.state)} ${esc(o.cust.pin)}</span></td><td>${esc(o.pname)}<br>${o.size} ×${o.qty}</td><td>${inr(o.unit*o.qty)}<br>−${o.pct}% = <b>${inr(o.final)}</b><br><span class="m">Profit:</span> <b class="ok">${inr(o.final-costOf(o))}</b><br><span class="m">Customer wants:</span> <b>${o.payment}</b></td><td><select onchange="orderService.updateStatus('${o.id}',this.value)">${[...new Set([...STATUS,cur,'Cancelled'])].map(x=>`<option ${x==cur?'selected':''}>${x}</option>`).join('')}</select><br><a class="btn o" style="margin-top:6px" target="_blank" rel="noopener" href="${custWaLink(o)}">Tell customer</a> <button class="d" onclick="delOrder('${o.id}')">✕</button></td></tr>`}).join('')}</table></div>`:empty('','No orders yet','Orders will appear here.');
+ if(tab=='profit'){const act=O.filter(o=>pfMode=='del'?o.status=='Delivered':o.status!='Cancelled');
+  const rows=P.flatMap(p=>SIZES.filter(z=>p.sizes[z]).map(z=>{const os=act.filter(o=>o.pid==p.id&&o.size==z),q=os.reduce((a,o)=>a+o.qty,0),rev=os.reduce((a,o)=>a+o.final,0),mc=cz(p,z,'mcost'),dc=cz(p,z,'dcost'),cost=q*(mc+dc);return{p,z,mc,dc,q,rev,cost,pr:rev-cost}})).filter(r=>r.q||true);
+  const T=rows.reduce((a,r)=>({q:a.q+r.q,rev:a.rev+r.rev,cost:a.cost+r.cost,pr:a.pr+r.pr}),{q:0,rev:0,cost:0,pr:0});
+  b=`<div class="box"><h2>Profit</h2><p class="m">Profit = sale price − (manufacturer cost + delivery cost). Costs are set per size in <a href="#/dash/products"><u>Products</u></a>. Cancelled orders are ignored.</p><select onchange="pfMode=this.value;route()"><option value="all" ${pfMode=='all'?'selected':''}>All active orders</option><option value="del" ${pfMode=='del'?'selected':''}>Delivered orders only</option></select></div><div class="grid">${[['Revenue',inr(T.rev)],['Total cost',inr(T.cost)],['Profit',inr(T.pr)]].map(x=>`<div class="box"><span class="m">${x[0]}</span><h2>${x[1]}</h2></div>`).join('')}</div><div class="box sc"><table><tr><th>T-shirt · size</th><th>Cost / pc</th><th>Sold</th><th>Revenue</th><th>Profit</th></tr>${rows.map(r=>`<tr><td>${esc(r.p.name)} · <b>${r.z}</b></td><td>${inr(r.mc+r.dc)}<br><span class="m">Mfg ${inr(r.mc)} + Del ${inr(r.dc)}</span></td><td>${r.q}</td><td>${inr(r.rev)}</td><td><b class="${r.pr>=0?'ok':'er'}">${inr(r.pr)}</b></td></tr>`).join('')}<tr><td><b>Total</b></td><td></td><td><b>${T.q}</b></td><td><b>${inr(T.rev)}</b></td><td><b>${inr(T.pr)}</b></td></tr></table></div>`}
+ if(tab=='posts'){newImgs=[];b=`<div class="box"><h2>New post</h2><textarea id="pt" placeholder="Caption (e.g. New collection Friday!)"></textarea><select id="pk"><option value="up">Upcoming T-shirt (shows in “Upcoming T-shirts” on home)</option><option value="">Normal post</option></select><b>T-shirt photos</b> <span class="m">(up to 4, optional)</span><input type="file" accept="image/*" multiple onchange="pickImgs(this)"><div id="pprev" class="thumbs"></div><input id="pv" placeholder="YouTube video link (optional)"><select id="pp"><option value="">No linked product</option>${P.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select><p id="err" class="er"></p><button onclick="addPost()">Post</button></div>${DB.posts.filter(p=>p.shopId==s.id).reverse().map(postHtml).join('')||empty('','No posts','')}`}
+if(tab=='profile')b=`<div class="box" style="padding:0;overflow:hidden"><div class="ban" style="height:180px;border-radius:0"><img src="${banUrl(s)}" alt=""></div><div class="row" style="margin-top:-46px;padding:0 18px"><img class="bigav" src="${avUrl(s)}" alt=""></div><div class="row" style="padding:12px 18px 18px"><label class="btn o">Change profile photo<input type="file" accept="image/*" style="display:none" onchange="setMedia('avatar',this)"></label><label class="btn o">Change banner<input type="file" accept="image/*" style="display:none" onchange="setMedia('banner',this)"></label></div></div><div class="box"><h2>Shop profile</h2><input id="sn" value="${esc(s.name)}"><textarea id="sb">${esc(s.bio)}</textarea><button onclick="saveShop()">Save</button></div>`;
+ if(tab=='settings')b=`<div class="box"><h2>Contact details</h2><p class="m">Only visible to you after login.</p><label class="m">Gmail</label><input id="se" type="email" value="${esc(s.email)}"><label class="m">WhatsApp number (with country code)</label><input id="sw" value="${esc(s.wa)}" inputmode="numeric"><button onclick="saveContact()">Save</button></div>
+<div class="box"><h2>Login alerts</h2><p class="m">${(s.cmKey||NOTIFY_KEY)?'<span class="ok">Active</span> — a WhatsApp message is sent to your number on every successful login.':'<span class="er">Not active</span> — add your CallMeBot key to get a WhatsApp message on every login.'}</p><input id="sk" value="${esc(s.cmKey||'')}" placeholder="CallMeBot API key"><div class="note">One-time setup: save <b>+34 644 51 95 23</b> in your contacts, send it this WhatsApp message: <b>I allow callmebot to send me messages</b>, then paste the API key it replies with. (The key belongs to the number that activated it.)</div><button onclick="saveKey()">Save key</button> <button class="o" onclick="testAlert()">Send test</button> <button class="o" onclick="openTest()">Check key (shows reply)</button><div class="note" style="margin-top:10px"><b>Not receiving?</b> Tap “Check key”: a page opens with CallMeBot’s real reply. If it says the key is invalid or the number is wrong, redo the activation from <b>8240095460</b>’s WhatsApp. Alerts only fire on a <b>new</b> login, so tap Logout first, then log in again.</div></div>
+<div class="box"><h2>Change password</h2><input id="cp0" type="password" placeholder="Current password"><input id="cp1" type="password" placeholder="New password (8+ characters)"><input id="cp2" type="password" placeholder="Repeat new password"><p id="err" class="er"></p><button onclick="savePw()">Update password</button></div>
+<div class="box"><h2>Recent logins</h2>${(DB.loginLog||[]).slice().reverse().map(l=>`<div class="m">${esc(l.t)} · ${esc(l.dev)}</div>`).join('')||'<p class="m">None yet.</p>'}</div>`;
+ return `<h2>${esc(s.name)} — Dashboard</h2>${nav}${(s.cmKey||NOTIFY_KEY)?'':'<div class="note" style="margin-top:12px">⚠️ <b>WhatsApp login alerts are not active yet.</b> They need a free CallMeBot key. <a href="#/dash/settings"><u>Set up now</u></a></div>'}${b}`};
+function setStock(pid,z,v){const n=+v;if(!Number.isInteger(n)||n<0)return toast('Invalid stock');productService.get(pid).sizes[z].stock=n;storageService.save();toast('Stock updated')}
+function delProd(id){if(confirm('Delete product?')){DB.products=DB.products.filter(p=>p.id!=id);storageService.save();route()}}
+function addProd(){const f={name:$('pn').value,desc:$('pd').value,cat:$('pcc').value.trim()||$('pc').value,bm:$('bm').value,bp:$('bp').value,imgs:newImgs.slice()};SIZES.forEach(z=>{f['on'+z]=$('on'+z).checked;f['pr'+z]=$('pr'+z).value;f['st'+z]=$('st'+z).value;f['mc'+z]=$('mc'+z).value;f['dc'+z]=$('dc'+z).value});
+ try{const e=productService.create(mySeller(),f);if(e)return $('err').textContent=e;location.hash='#/dash/products'}catch(x){$('err').textContent=String(x)}}
+function addPost(){const tx=$('pt').value.trim(),v=$('pv').value.trim(),yt=ytId(v);if(!tx&&!newImgs.length&&!v)return toast('Add a caption, photo or video link');if(v&&!yt)return $('err').textContent='That does not look like a YouTube link';
+ DB.posts.push({id:'po'+uid(),shopId:mySeller().id,text:tx,pid:$('pp').value,upcoming:$('pk').value=='up',imgs:newImgs.slice(),yt,date:new Date().toISOString(),likes:[],comments:[]});newImgs=[];storageService.save();toast('Posted');route()}
+function saveShop(){const s=mySeller();if(!$('sn').value.trim())return toast('Shop name required');s.name=$('sn').value.trim();s.bio=$('sb').value;storageService.save();toast('Saved')}
+/* ========== SELLER SECURITY / PROFILE HELPERS ========== */
+const avUrl=s=>s.avatar||ph(s.name[0],s.hue),banUrl=s=>s.bannerImg||ph('',s.banner);
+function doLogin(){const e=authService.loginSeller($('lp').value);e?$('err').textContent=e:location.hash='#/dash/overview'}
+const waNum=n=>{n=String(n||'').replace(/\D/g,'');return n.length==10?'91'+n:n};
+const waUrl=text=>{const s=DB.shops[0],key=s.cmKey||NOTIFY_KEY;return (!key||!s.wa)?'':'https://api.callmebot.com/whatsapp.php?phone='+encodeURIComponent('+'+waNum(s.wa))+'&text='+encodeURIComponent(text)+'&apikey='+encodeURIComponent(key)};
+function sendWa(text){const u=waUrl(text);if(!u)return false;
+ try{fetch(u,{mode:'no-cors',keepalive:true}).catch(()=>{})}catch(e){}return true}
+function openTest(){const u=waUrl('Test alert from your T-shirt website');if(!u)return toast('Save your API key first');window.open(u,'_blank')}
+function notifyLogin(){const t=new Date().toLocaleString('en-IN'),dev=/Mobi|Android|iPhone/i.test(navigator.userAgent)?'Mobile':'Computer';
+ DB.loginLog=(DB.loginLog||[]).concat({t,dev}).slice(-15);storageService.save();
+ sendWa('🔔 Someone entered your profile of the T-shirt website (Teevora).\nTime: '+t+'\nDevice: '+dev)}
+function testAlert(){if(!sendWa('✅ Test alert from your T-shirt website.'))return toast('Add your API key first');toast('Test sent – check WhatsApp')}
+function saveContact(){const s=mySeller(),e=$('se').value.trim(),w=waNum($('sw').value);if(!/^\S+@\S+\.\S+$/.test(e))return toast('Enter a valid Gmail');if(!/^\d{10,13}$/.test(w))return toast('WhatsApp: 10-13 digits with country code');s.email=e;s.wa=w;storageService.save();renderNav();toast('Saved')}
+function saveKey(){mySeller().cmKey=$('sk').value.trim();storageService.save();toast('Saved');route()}
+function savePw(){const e=authService.changePassword($('cp0').value,$('cp1').value,$('cp2').value);e?$('err').textContent=e:(toast('Password updated'),route())}
+function cropImg(file,w,h,q=.82){return new Promise((res,rej)=>{const r=new FileReader();r.onerror=rej;r.onload=()=>{const im=new Image();im.onerror=rej;im.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;const k=Math.max(w/im.width,h/im.height),dw=im.width*k,dh=im.height*k;c.getContext('2d').drawImage(im,(w-dw)/2,(h-dh)/2,dw,dh);res(c.toDataURL('image/jpeg',q))};im.src=r.result};r.readAsDataURL(file)})}
+async function setMedia(kind,input){const f=input.files[0];input.value='';if(!f)return;if(!f.type.startsWith('image/'))return toast('Only image files allowed');
+ try{const s=mySeller();if(kind=='avatar')s.avatar=await cropImg(f,400,400);else s.bannerImg=await cropImg(f,1400,420);storageService.save();toast('Photo updated');route()}catch(e){toast('Could not read image')}}
+/* ========== SAFETY: stale cart, errors, phone format ========== */
+const normPhone=v=>{let d=String(v).replace(/\D/g,'');if(d.length==12&&d.startsWith('91'))d=d.slice(2);if(d.length==11&&d[0]=='0')d=d.slice(1);return d};
+function showErr(m){const e=$('err');if(e){e.textContent=m;try{e.scrollIntoView({block:'center'})}catch(x){}}toast(m)}
+function cleanCart(){const n=DB.cart.length;DB.cart=DB.cart.filter(l=>{const p=productService.get(l.pid),x=p&&p.sizes&&p.sizes[l.size];if(!x||!(x.stock>0))return false;if(l.qty>x.stock)l.qty=x.stock;return l.qty>0});if(DB.cart.length!=n){storageService.save();updCart()}}
+window.addEventListener('error',e=>{try{toast('Error: '+e.message)}catch(x){}});
+/* ========== ORDERS / PROFIT / HOME TABS ========== */
+const STATUS=['Pending','Confirmed','Manufacturing','Ready','Delivering','Delivered'],LEG={Preparing:'Manufacturing',Shipped:'Delivering'};
+let pfMode='all',homeTab='sell';
+const cz=(p,z,k)=>{const x=p.sizes[z]||{};return x[k]!=null?x[k]:(p[k]||0)};
+const costOf=o=>{const p=productService.get(o.pid);return p?o.qty*(cz(p,o.size,'mcost')+cz(p,o.size,'dcost')):0};
+function stepBar(st){st=LEG[st]||st;if(st=='Cancelled')return '<b class="er">Cancelled</b>';const i=Math.max(0,STATUS.indexOf(st));return `<div class="steps">${STATUS.map((x,k)=>`<span class="${k==i?'cur':k<i?'on':''}">${x}</span>`).join('')}</div>`}
+function custWaLink(o){return 'https://wa.me/'+waNum(o.cust.phone)+'?text='+encodeURIComponent('Hi '+o.cust.name+', update on your order '+o.id+' ('+o.pname+', size '+o.size+' ×'+o.qty+'): status is now '+(LEG[o.status]||o.status)+'. Total '+inr(o.final)+'. Thank you!')}
+function cartWaLink(){const s=DB.shops[0],num=(s&&s.wa)||OWNER.wa;let tot=0;const ls=DB.cart.map((l,i)=>{const p=productService.get(l.pid),c=productService.calc(p,l.size,l.qty);tot+=c.final;return (i+1)+'. '+p.name+' | Size '+l.size+' | Qty '+l.qty+' | '+inr(c.final)});return 'https://wa.me/'+num+'?text='+encodeURIComponent('Hi, I want to order:\n'+ls.join('\n')+'\nTotal: '+inr(tot))}
+function clearOrders(){const s=mySeller();if(!confirm('Delete ALL orders? This cannot be undone.'))return;DB.orders=DB.orders.filter(o=>o.shopId!=s.id);storageService.save();toast('All orders cleared');route()}
+function delOrder(id){if(!confirm('Delete order '+id+'?'))return;DB.orders=DB.orders.filter(o=>o.id!=id);storageService.save();route()}
+function setCost(id,z,k,v){const n=+v;if(!(n>=0))return toast('Invalid amount');productService.get(id).sizes[z][k]=n;storageService.save();toast('Saved')}
+const sold=p=>DB.orders.filter(o=>o.pid==p.id&&o.status!='Cancelled').reduce((a,o)=>a+o.qty,0);
+const htabsHtml=()=>[['sell','Most selling'],['fresh','Fresh'],['old','Oldest'],['posts','Posts']].map(([k,n])=>`<a class="chip ${k==homeTab?'on':''}" onclick="setHomeTab('${k}')">${n}</a>`).join('');
+function tabBody(){const P=productService.list();if(homeTab=='posts'){const po=DB.posts.slice().reverse();return po.length?po.map(postHtml).join(''):empty('','No posts yet','')}
+ return vgrid(homeTab=='sell'?P.slice().sort((a,b)=>sold(b)-sold(a)):homeTab=='fresh'?P.slice().reverse():P)}
+function setHomeTab(k){homeTab=k;$('htabs').innerHTML=htabsHtml();$('hbody').innerHTML=tabBody()}
+/* ========== ROUTER ========== */
+function renderNav(){document.body.classList.toggle('seller',!!mySeller());
+ const sh=DB.shops[0],w=$('waf'),num=(sh&&sh.wa)||OWNER.wa;
+ let msg='Hi! I have a question about your t-shirts.';const m=location.hash.match(/^#\/p\/(.+)$/),p=m&&productService.get(decodeURIComponent(m[1]));if(p)msg='Hi, I am interested in '+p.name;
+ w.href='https://wa.me/'+num+'?text='+encodeURIComponent(msg);w.style.display='flex'}
+function route(){try{cleanCart()}catch(x){DB.cart=[]}const parts=location.hash.split('/');const k=parts[1]||'home';renderNav();
+ if(k=='account'||k=='following'||k=='shops'){location.hash='#/home';return}
+ const arg=parts[2]?decodeURIComponent(parts[2]):'';
+ if(k=='search'){V.search(arg);return}
+ if(k=='cat'){$('app').innerHTML=V.cat(arg,parts[3]?decodeURIComponent(parts[3]):'');window.scrollTo(0,0);return}
+ try{$('app').innerHTML=(V[k]||V.home)(arg);if(k=='p')pricebox()}catch(x){$('app').innerHTML='<div class="box"><h3>Something went wrong</h3><p class="m">'+esc(String(x.message||x))+'</p><button onclick="DB.cart=[];storageService.save();updCart();location.hash=\'#/home\';route()">Reset cart &amp; reload page</button></div>'}window.scrollTo(0,0)}
+if($('logoIc'))$('logoIc').innerHTML=DECO_BIRD;
+window.addEventListener('hashchange',route);updCart();route();
+</script><style>
+.eyebrow{font-family:"Monotype Corsiva","Apple Chancery","URW Chancery L","Z003","Lucida Calligraphy","Lucida Handwriting",cursive!important;font-style:italic;text-transform:none!important;letter-spacing:.02em!important;font-size:22px!important;font-weight:400!important}
+</style>
+<!-- ===== PREMIUM UPGRADE: line-art tees, wishlist, coupons, cart order panel ===== -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap');
+h1,h2,.logo{font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif}
+h2{font-size:28px}.logo{font-size:23px;letter-spacing:.14em}
+header{border-bottom:1px solid var(--gold2);box-shadow:0 1px 0 rgba(176,141,79,.12)}
+.grid .card:hover{border-color:var(--gold2);box-shadow:0 18px 38px rgba(80,60,20,.12)}
+.box{box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 8px 24px rgba(80,60,20,.05)}
+#teeArt{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse at 15% 0,rgba(220,194,140,.22),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(176,141,79,.14),transparent 50%)}
+#teeArt svg{position:absolute;color:var(--gold);fill:none;stroke:currentColor;stroke-width:1;stroke-linejoin:round;stroke-linecap:round}
+#teeArt use,#teeArt path{vector-effect:non-scaling-stroke}
+.heart{position:absolute;top:10px;right:10px;width:36px;height:36px;padding:0;border-radius:50%;background:rgba(255,255,255,.94);color:var(--t);border:1px solid var(--gold2);display:flex;align-items:center;justify-content:center;z-index:2}
+.heart svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7}.heart:hover{background:#fff;border-color:var(--gold)}
+.heart.on svg{fill:var(--gold);stroke:var(--gold)}
+.wbtn{display:inline-flex;gap:6px;align-items:center;background:#fff;color:var(--t);border-color:var(--gold)}.wbtn:hover{background:var(--gold);border-color:var(--gold)}
+.wbtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8}.wbtn.on svg{fill:currentColor}
+.sum{border-top:1px solid var(--gold2);margin-top:14px;padding-top:14px}.sum .r{display:flex;justify-content:space-between;padding:3px 0}
+.sum .tt{font:700 24px 'Cormorant Garamond',Georgia,serif;border-top:1px dashed var(--gold2);margin-top:6px;padding-top:8px}
+.cpn{display:flex;gap:8px;margin:10px 0}.cpn input{margin:0;text-transform:uppercase}.cpn button{white-space:nowrap}
+.cpn+.m b{cursor:pointer;color:var(--gold);text-decoration:underline dotted}
+.ordnow{width:100%;padding:14px;font-size:16px;background:linear-gradient(135deg,#14120f,#3a3023);border-color:var(--gold);letter-spacing:.06em}
+.ordnow:hover{background:linear-gradient(135deg,#000,#2a2218)}
+@media(prefers-reduced-motion:no-preference){#teeArt svg{animation:fl 14s ease-in-out infinite alternate}#teeArt svg:nth-child(even){animation-duration:19s}}
+@keyframes fl{to{transform:translateY(-14px) rotate(var(--r2,0deg))}}
+</style>
+<script>
+(function(){
+/* --- line-art tee background --- */
+const tee='<path d="M38 8 14 22l8 18 12-6v74h52V34l12 6 8-18L82 8c-4 10-12 14-22 14S42 18 38 8Z"/><path d="M46 8c4 8 24 8 28 0M34 34v-6M86 34v-6M34 104h52M40 22l-4 6M80 22l4 6" stroke-dasharray="3 3"/><path d="M50 52h20M50 60h20" opacity=".5"/>';
+const pos=[['6%','8%',230,-14],['78%','4%',190,12],['64%','44%',280,-8],['-3%','58%',260,10],['84%','78%',210,-16],['34%','82%',170,6]];
+const a=document.createElement('div');a.id='teeArt';a.setAttribute('aria-hidden','true');
+a.innerHTML=pos.map(p=>`<svg viewBox="0 0 120 120" style="left:${p[0]};top:${p[1]};width:${p[2]}px;height:${p[2]}px;transform:rotate(${p[3]}deg);opacity:${p[2]>240?.34:.42};--r2:${p[3]+4}deg">${tee}</svg>`).join('');
+document.body.prepend(a);
+/* --- wishlist --- */
+const WK='tv_wish',CK='tv_coupon';
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const W=()=>ld(WK,[]);window.inW=id=>W().some(x=>x==id);
+const HI='<svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-9-9.5C2 7 4.3 4.5 7.2 4.5c1.9 0 3.5 1 4.8 2.8 1.3-1.8 2.9-2.8 4.8-2.8 2.9 0 5.2 2.5 4.2 6C19.5 15.4 12 20 12 20Z"/></svg>';
+function wc(){const e=document.getElementById('wc');if(e){const n=W().length;e.textContent=n?`(${n})`:''}}
+window.toggleWish=(id,ev)=>{ev&&ev.stopPropagation();let w=W();const on=w.some(x=>x==id);w=on?w.filter(x=>x!=id):[...w,id];sv(WK,w);toast(on?'Removed from wishlist':'Saved to wishlist');wc();
+ if(location.hash.startsWith('#/wish'))return route();const b=ev&&ev.currentTarget;if(b)b.classList.toggle('on',!on)};
+const _card=card;card=function(p){return _card(p).replace('<div class="card">',`<div class="card" style="position:relative"><button class="heart ${inW(p.id)?'on':''}" aria-label="Save to wishlist" onclick="toggleWish('${p.id}',event)">${HI}</button>`)};
+const _p=V.p;V.p=function(id){return _p(id).replace('<button onclick="addToCart()">Add to Cart</button>',`<button onclick="addToCart()">Add to Cart</button><button class="wbtn ${inW(id)?'on':''}" onclick="toggleWish('${id}',event)">${HI} Wishlist</button>`)};
+V.wish=()=>{const l=W().map(i=>productService.get(i)).filter(Boolean);return `<h2>My wishlist</h2>`+(l.length?`<div class="grid">${l.map(card).join('')}</div>`:empty('','Your wishlist is empty','Tap the heart on any t-shirt to save it here.','<a class="btn" href="#/home">Browse t-shirts</a>'))};
+const nav=document.querySelector('header nav');if(nav){nav.querySelector('a[href="#/orders"]').insertAdjacentHTML('afterend','<a href="#/wish">Wishlist <b id="wc"></b></a>')}wc();
+/* --- coupons (created by the seller; none by default) --- */
+const CL=()=>(DB.coupons=DB.coupons||[]);
+const cartTot=()=>DB.cart.reduce((a,l)=>{const p=productService.get(l.pid);return p?a+productService.calc(p,l.size,l.qty).final:a},0);
+const cLbl=d=>d.type=='flat'?inr(d.val)+' off':d.val+'% off';
+function cpn(tot){const d=CL().find(x=>x.code==ld(CK,'')&&x.on);if(!d||tot<d.min)return null;const amt=Math.min(tot,d.type=='flat'?d.val:Math.round(tot*d.val/100));return{code:d.code,lbl:cLbl(d),amt}}
+window.applyCpn=()=>{const c=(document.getElementById('cpi').value||'').trim().toUpperCase(),d=CL().find(x=>x.code==c&&x.on);if(!d)return toast('Invalid or inactive coupon code');if(cartTot()<d.min)return toast('Valid on orders of '+inr(d.min)+' or more');sv(CK,c);toast('Coupon applied: '+c);route()};
+window.rmCpn=()=>{sv(CK,'');route()};
+const _cart=V.cart;V.cart=function(){const h=_cart();if(!DB.cart.length)return h;const tot=cartTot(),c=cpn(tot),has=CL().some(x=>x.on);
+ const sum=`<div class="sum"><div class="r"><span>Subtotal</span><b>${inr(tot)}</b></div>${c?`<div class="r ok"><span>Coupon ${esc(c.code)} (${c.lbl})</span><b>−${inr(c.amt)}</b></div>`:''}<div class="r tt"><span>Total</span><span>${inr(tot-(c?c.amt:0))}</span></div>
+ ${has?`<div class="cpn"><input id="cpi" placeholder="Coupon code" value="${c?esc(c.code):''}"><button class="o" onclick="${c?'rmCpn()':'applyCpn()'}">${c?'Remove':'Apply'}</button></div>`:''}
+ <button class="ordnow" onclick="location.hash='#/checkout'">Order now</button>
+ <div class="row" style="margin-top:10px"><a class="btn g" target="_blank" rel="noopener" href="${cartWaLink()}">Order on WhatsApp</a><a class="btn o" href="#/home">Continue shopping</a></div></div></div>`;
+ return h.replace(/<h3>Total:[\s\S]*$/,sum)};
+const _co=V.checkout;V.checkout=function(){const h=_co(),c=cpn(cartTot());return c?h.replace('<h2>Checkout (guest allowed)</h2>',`<h2>Checkout (guest allowed)</h2><div class="note">Coupon <b>${esc(c.code)}</b> applied: you save ${inr(c.amt)}.</div>`):h};
+const _oc=orderService.create.bind(orderService);orderService.create=function(cust,pay){const tot=cartTot(),c=cpn(tot);const made=_oc(cust,pay);
+ if(c){made.forEach(o=>{const sh=Math.round(c.amt*o.final/tot);o.disc+=sh;o.final-=sh;o.coupon=c.code});const d=CL().find(x=>x.code==c.code);if(d)d.used=(d.used||0)+1;storageService.save();sv(CK,'')}return made};
+/* seller dashboard: Coupons tab */
+const _dash=V.dash;V.dash=function(tab){const h=_dash(tab);if(!mySeller())return h;
+ let out=h.replace('>settings</a>','>settings</a><a class="chip '+(tab=='coupons'?'on':'')+'" href="#/dash/coupons">coupons</a>');
+ if(tab!='coupons')return out;
+ const L=CL(),body=`<div class="box"><h2>New coupon</h2><input id="kc" placeholder="Coupon code (e.g. DIWALI10)" style="text-transform:uppercase"><div class="row"><select id="kt" style="width:auto"><option value="pct">Percent off (%)</option><option value="flat">Flat amount off (₹)</option></select><input id="kv" type="number" min="1" placeholder="Value" style="width:120px"><input id="km" type="number" min="0" placeholder="Min order ₹ (optional)" style="width:190px"></div><p id="err" class="er"></p><button onclick="addCpn()">Create coupon</button></div>
+ <div class="box sc">${L.length?`<table>${L.map((d,i)=>`<tr><td><b>${esc(d.code)}</b><br><span class="m">${cLbl(d)}${d.min?' · min '+inr(d.min):''} · used ${d.used||0}×</span></td><td>${d.on?'<span class="ok">Active</span>':'<span class="m">Paused</span>'}</td><td><button class="o" onclick="togCpn(${i})">${d.on?'Pause':'Activate'}</button> <button class="d" onclick="delCpn(${i})">Delete</button></td></tr>`).join('')}</table>`:'<p class="m">No coupons yet. Customers see the coupon box in the cart only after you create one.</p>'}</div>`;
+ return out.replace(/<\/div><\/div>$/,m=>m)+body};
+window.addCpn=()=>{const c=document.getElementById('kc').value.trim().toUpperCase().replace(/\s+/g,''),t=document.getElementById('kt').value,v=+document.getElementById('kv').value,m=+document.getElementById('km').value||0,e=document.getElementById('err');
+ if(!/^[A-Z0-9_-]{3,20}$/.test(c))return e.textContent='Code must be 3–20 letters or numbers';if(CL().some(x=>x.code==c))return e.textContent='This code already exists';if(!(v>0)||(t=='pct'&&v>90))return e.textContent=t=='pct'?'Enter a percent from 1 to 90':'Enter an amount above 0';
+ CL().push({code:c,type:t,val:v,min:m,on:true,used:0});storageService.save();toast('Coupon created');route()};
+window.togCpn=i=>{CL()[i].on=!CL()[i].on;storageService.save();route()};
+window.delCpn=i=>{if(confirm('Delete this coupon?')){CL().splice(i,1);storageService.save();route()}};
+route();
+})();
+</script>
+<!-- ===== PREMIUM CLOSET ===== -->
+<style>
+#pi{position:fixed;inset:0;z-index:9999;background:radial-gradient(ellipse at center,#2a2114 0,#0b0a08 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#e8cf9a;animation:pout .8s ease 4.2s forwards}
+#pi svg{fill:none;stroke:#d9b878;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+#pi svg path{stroke-dasharray:1;stroke-dashoffset:1;animation:dr 2.2s ease forwards}
+#pi .t path{animation-delay:.2s}#pi .o1 path{animation-delay:1s;animation-duration:1.6s}#pi .o2 path{animation-delay:1.3s;animation-duration:1.6s}
+#pi .tee{width:min(46vw,200px);height:auto;margin-bottom:18px}#pi .orn{width:min(80vw,380px);height:24px}
+#pi small{font:500 13px Inter,sans-serif;letter-spacing:.5em;text-transform:uppercase;opacity:0;animation:fi 1s ease 2.2s forwards;margin-top:14px}
+#pi h1{font:600 clamp(34px,9vw,60px)/1.1 'Cormorant Garamond',Georgia,serif;margin:8px 16px;text-align:center;opacity:0;letter-spacing:.02em;animation:fi 1.4s ease 2.6s forwards,sp 2.4s ease 2.6s forwards;color:#f1dcab}
+#pi button{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:16px;background:transparent;border:1px solid #8a6f3d;color:#d9b878;padding:6px 14px;font-size:13px}
+@keyframes dr{to{stroke-dashoffset:0}}@keyframes fi{to{opacity:1}}@keyframes sp{from{letter-spacing:.3em}to{letter-spacing:.06em}}@keyframes pout{to{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){#pi svg path{animation-duration:.01s}}
+.pcl{background:linear-gradient(135deg,#14110c,#2f2517);color:#f1dcab;border:1px solid var(--gold);border-radius:18px;text-align:center;padding:34px 18px;margin-bottom:18px}
+.pcl h2{color:#f1dcab;font-size:34px;margin:6px 0}.pcl .m{color:#cdb88a}.pcl svg{width:min(70%,300px);height:18px;fill:none;stroke:#d9b878;stroke-width:1.2}
+.prem .card::before{content:"PREMIUM";position:absolute;left:10px;top:10px;z-index:2;background:#14110c;color:#e8cf9a;border:1px solid var(--gold);font:600 10px Inter,sans-serif;letter-spacing:.2em;padding:4px 9px;border-radius:99px}
+</style>
+<script>
+(function(){
+const P=productService,_l=P.list.bind(P);
+P.list=function(f){f=f||{};return _l(f).filter(p=>f.premium?p.premium:!p.premium)};
+const tee='<path pathLength="1" d="M38 8 14 22l8 18 12-6v74h52V34l12 6 8-18L82 8c-4 10-12 14-22 14S42 18 38 8Z"/><path pathLength="1" d="M46 8c4 8 24 8 28 0"/>';
+const orn='<path pathLength="1" d="M0 12h150c6 0 8-8 14-8s8 8 14 8-8 8-14 8-8-8-14-8M400 12H250c-6 0-8-8-14-8s-8 8-14 8 8 8 14 8 8-8 14-8"/>';
+const ORN2='<svg viewBox="0 0 400 24"><path d="M0 12h150M250 12h150"/><path d="M178 12l22-8 22 8-22 8Z"/></svg>';
+function intro(){const d=document.createElement('div');d.id='pi';
+ d.innerHTML=`<button>Skip</button><svg class="tee t" viewBox="0 0 120 130"><path pathLength="1" d="M60 22v-6c0-6 8-8 9-2 1 5-5 6-9 8M60 22 4 54h112L60 22"/><g transform="translate(0 22)">${tee}<path pathLength="1" d="M34 104h52"/></g></svg>
+ <svg class="orn o1" viewBox="0 0 400 24">${orn}</svg><small>Welcome to</small><h1>Premium Closet</h1><svg class="orn o2" viewBox="0 0 400 24">${orn}</svg>`;
+ document.body.appendChild(d);const k=()=>d.remove();d.querySelector('button').onclick=k;setTimeout(k,5000)}
+let seen=false;addEventListener('hashchange',()=>{if(!location.hash.startsWith('#/premium'))seen=false});
+V.premium=function(){if(!seen){seen=true;setTimeout(intro,0)}const l=P.list({premium:true});
+ return `<div class="pcl"><span class="m">EXCLUSIVE COLLECTION</span><h2>Premium Closet</h2>${ORN2}<p class="m">Our finest, limited t-shirts, kept apart from the rest.</p></div>`+(l.length?`<div class="prem">${grid(l)}</div>`:empty('','Premium closet is being prepared','Exclusive t-shirts are coming soon. Please check back later.'))};
+const nav=document.querySelector('header nav a[href="#/cats"]');if(nav)nav.insertAdjacentHTML('afterend','<a href="#/premium">Premium</a>');
+const bc=document.querySelector('.mb a[href="#/cats"]');if(bc)bc.insertAdjacentHTML('afterend','<a href="#/premium"><svg viewBox="0 0 24 24"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5Z"/></svg>Premium</a>');
+/* seller: choose which t-shirts go to Premium */
+const _d=V.dash;V.dash=function(tab){const h=_d(tab);if(!mySeller())return h;
+ const o=h.replace('>coupons</a>','>coupons</a><a class="chip '+(tab=='premium'?'on':'')+'" href="#/dash/premium">premium</a>');if(tab!='premium')return o;
+ const L=DB.products.filter(p=>p.shopId==mySeller().id);
+ return o+`<div class="box"><h2>Premium closet</h2><p class="m">Choose which t-shirts appear only in the Premium tab. They are hidden from the normal shop.</p>${L.length?L.map(p=>`<div class="citem"><img class="oi" src="${esc(pimgs(p)[0])}" alt=""><div style="flex:1"><b>${esc(p.name)}</b><br><span class="m">From ${inr(P.minPrice(p))} · ${p.premium?'In Premium closet':'Normal shop'}</span></div><button class="${p.premium?'o':''}" onclick="togPrem('${p.id}')">${p.premium?'Remove':'Add to Premium'}</button></div>`).join(''):'<p class="m">No t-shirts yet. Add one first.</p>'}</div>`};
+window.togPrem=id=>{const p=P.get(id);if(!p)return;p.premium=!p.premium;storageService.save();toast(p.premium?'Moved to Premium closet':'Moved to normal shop');route()};
+route();
+})();
+</script>
+<!-- ===== FINISHING TOUCHES ===== -->
+<style>
+:root{--champ:#f1dcab;--gold3:#8a6a2f;--ink:#14110c;--wine:#4a1f2a}
+body{background-color:var(--bg);background-image:radial-gradient(rgba(176,141,79,.10) 1px,transparent 1.2px);background-size:22px 22px}
+header{background:linear-gradient(180deg,rgba(255,252,246,.96),rgba(247,241,229,.92))!important;border-bottom:0!important;box-shadow:0 1px 0 var(--gold2),0 6px 20px -14px rgba(60,45,15,.4)}
+header::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--champ),var(--gold),transparent);opacity:.8}
+.logo{background:linear-gradient(120deg,#6d5222,#c9a45a 45%,#6d5222);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+button:not(.o):not(.d):not(.heart):not(.wbtn),.btn:not(.o):not(.g){background:linear-gradient(135deg,#14110c,#3a2f1d 55%,#14110c)!important;border:1px solid var(--gold)!important;color:var(--champ)!important}
+button:not(.o):not(.d):not(.heart):not(.wbtn):hover,.btn:not(.o):not(.g):hover{background:linear-gradient(135deg,#2a2114,#5a4725)!important;box-shadow:0 8px 22px -8px rgba(176,141,79,.7)}
+.hero{background:linear-gradient(135deg,transparent 0 48%,rgba(220,194,140,.07) 48% 52%,transparent 52%) 0 0/34px 34px,radial-gradient(120% 150% at 88% 0,#46351d 0,#14110c 58%)!important}
+.hero h1{background:linear-gradient(100deg,#fff 0,var(--champ) 45%,#fff 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .deco{opacity:.16!important;pointer-events:none}
+h2{position:relative}
+.card{background:linear-gradient(#fff,#fdfaf3);border:1px solid #e6d9bb!important}
+.card:hover{transform:translateY(-4px);box-shadow:0 22px 40px -18px rgba(90,65,20,.35),0 0 0 1px var(--gold)}
+.chip{background:linear-gradient(#fff,#f8f1e1);border-color:#e0cfa5}.chip.on{background:linear-gradient(135deg,#14110c,#3a2f1d)!important;color:var(--champ)!important;border-color:var(--gold)!important}
+.mb a.on,.mb a:hover{color:var(--gold3)}
+footer{border-top:1px solid var(--gold2);background:linear-gradient(180deg,transparent,rgba(220,194,140,.14))}
+/* glitch fixes */
+header input#q{min-width:0;flex:1 1 120px;max-width:260px}
+@media(max-width:720px){header{padding:10px 14px!important;gap:8px}.logo{font-size:19px!important;letter-spacing:.1em!important}header input#q{flex:1 1 90px;padding:9px 12px}.sl{padding:8px 12px;font-size:12px}.hero{padding:44px 20px!important}#app{padding-bottom:90px}}
+html,body{overflow-x:hidden}img{max-width:100%}
+/* premium page */
+.pcl{background:repeating-linear-gradient(45deg,rgba(220,194,140,.06) 0 1px,transparent 1px 14px),radial-gradient(120% 160% at 50% 0,#3b2d17,#100d08 65%)!important;box-shadow:inset 0 0 0 5px #100d08,inset 0 0 0 6px rgba(220,194,140,.55),0 24px 50px -26px rgba(40,28,8,.7);padding:46px 20px!important}
+.pcl h2{background:linear-gradient(100deg,#c9a45a,#fff3d0 50%,#c9a45a);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:40px!important;letter-spacing:.06em}
+.prem .card{background:linear-gradient(#17130d,#0f0c08)!important;border:1px solid var(--gold)!important;color:var(--champ)}.prem .card b,.prem .card a{color:var(--champ)}.prem .card .m{color:#b9a273}
+/* new premium intro */
+#pi{background:radial-gradient(ellipse at 50% 38%,#34270f 0,#120e07 55%,#050403 100%)!important}
+#pi::before{content:"";position:absolute;inset:14px;border:1px solid rgba(217,184,120,.55);opacity:0;animation:fi 1s ease .2s forwards}
+#pi::after{content:"";position:absolute;inset:22px;border:1px solid rgba(217,184,120,.25);opacity:0;animation:fi 1s ease .5s forwards}
+#pi .crest{width:64px;height:64px;margin-bottom:6px}#pi .crest path{animation-delay:.4s!important}
+#pi .tee{width:min(40vw,170px)!important}
+#pi h1{background:linear-gradient(100deg,#b8913f 0,#fff6d8 40%,#b8913f 60%,#fff6d8 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;animation:fi 1.4s ease 2.5s forwards,sp 2.4s ease 2.5s forwards,sh 2.2s linear 2.8s forwards!important}
+#pi .dust i{position:absolute;width:3px;height:3px;border-radius:50%;background:#e8cf9a;opacity:0;animation:dustup 4s ease-in infinite}
+@keyframes sh{to{background-position:-120% 0}}@keyframes dustup{0%{opacity:0;transform:translateY(40px)}30%{opacity:.8}100%{opacity:0;transform:translateY(-140px)}}
+</style>
+<script>
+(function(){
+/* richer intro: crest + dust, built on top of the existing intro() */
+const mo=new MutationObserver(()=>{const d=document.getElementById('pi');if(!d||d.dataset.up)return;d.dataset.up=1;
+ d.insertAdjacentHTML('afterbegin','<svg class="crest" viewBox="0 0 64 64"><path pathLength="1" d="M8 46 4 18l14 14 14-22 14 22 14-14-4 28Z"/><path pathLength="1" d="M10 54h44"/></svg>');
+ const dust=document.createElement('div');dust.className='dust';dust.innerHTML=Array.from({length:18},(_,i)=>`<i style="left:${(i*53)%100}%;top:${55+(i*17)%40}%;animation-delay:${(i%9)*.35}s"></i>`).join('');d.appendChild(dust);
+ const t=d.querySelector('.tee');if(t){t.querySelector('path:first-child').setAttribute('d','M60 20v-4c0-6 8-7 9-2 1 4-4 5-9 7')}});
+mo.observe(document.body,{childList:true});
+/* glitch fix: stop scroll behind intro, and close it if user changes page */
+addEventListener('hashchange',()=>{const d=document.getElementById('pi');if(d&&!location.hash.startsWith('#/premium'))d.remove()});
+})();
+</script>
+<!-- ===== LUXE FINAL: palette, intro v2 ===== -->
+<style>
+:root{--ivory:#fbf7ee;--sand:#efe5d0;--blush:#f3e1dc;--sage:#e3e8dc;--rose:#b9777f;--emer:#0f3b33;--emer2:#1b5a4c;--wine:#3f1722;--wine2:#6b2a3a;--gold4:#7a5c24}
+body{background-image:radial-gradient(rgba(176,141,79,.10) 1px,transparent 1.2px),radial-gradient(120% 70% at 0 0,rgba(243,225,220,.75),transparent 60%),radial-gradient(90% 60% at 100% 30%,rgba(227,232,220,.7),transparent 60%),linear-gradient(180deg,#fbf7ee,#f1e8d5)!important;background-size:22px 22px,auto,auto,auto;background-attachment:fixed}
+.hero{background:linear-gradient(135deg,transparent 0 48%,rgba(220,194,140,.07) 48% 52%,transparent 52%) 0 0/34px 34px,radial-gradient(90% 120% at 100% 100%,rgba(27,90,76,.55),transparent 60%),radial-gradient(120% 150% at 88% 0,#4a3820 0,#14110c 58%)!important}
+.hero::after{content:"";position:absolute;inset:8px;border:1px solid rgba(220,194,140,.35);border-radius:18px;pointer-events:none}
+h2::before{content:"◆";color:var(--gold);font-size:11px;margin-right:10px;vertical-align:middle}
+.cats .chip:nth-child(5n+1){background:linear-gradient(#fff,var(--sand))}.cats .chip:nth-child(5n+2){background:linear-gradient(#fff,var(--blush))}.cats .chip:nth-child(5n+3){background:linear-gradient(#fff,var(--sage))}.cats .chip:nth-child(5n+4){background:linear-gradient(#fff,#ece3f0)}.cats .chip:nth-child(5n){background:linear-gradient(#fff,#e2edf0)}
+.cats .chip.on{background:linear-gradient(135deg,#14110c,#3a2f1d)!important}
+a.card.pad{background:linear-gradient(160deg,#fff 0,var(--sand) 100%)}a.card.pad:nth-child(3n+2){background:linear-gradient(160deg,#fff 0,var(--blush) 100%)}a.card.pad:nth-child(3n){background:linear-gradient(160deg,#fff 0,var(--sage) 100%)}
+.card b{color:#1d1810}.bad{background:linear-gradient(135deg,var(--wine),var(--wine2))!important;color:#f6e3c0!important;border:1px solid var(--gold)!important}
+.box{background:linear-gradient(180deg,#fffdf8,#faf4e6);border:1px solid #e6d9bb}
+input,select,textarea{background:#fffdf8;border-color:#e0cfa5}input:focus,select:focus,textarea:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 3px rgba(176,141,79,.2)}
+.ordnow{background:linear-gradient(135deg,var(--emer),var(--emer2) 55%,var(--emer))!important}
+.mb{background:linear-gradient(180deg,rgba(255,252,246,.94),rgba(243,232,210,.94))!important;border-top:1px solid var(--gold2)}
+footer{background:linear-gradient(180deg,transparent,rgba(15,59,51,.10) 40%,rgba(15,59,51,.2))!important;color:var(--gold4)}
+::selection{background:var(--gold);color:#fff}.pcl h2::before{content:none!important}
+.pcl{background:repeating-linear-gradient(45deg,rgba(220,194,140,.06) 0 1px,transparent 1px 14px),radial-gradient(90% 120% at 0 100%,rgba(107,42,58,.7),transparent 60%),radial-gradient(120% 160% at 50% 0,#3b2d17,#100d08 65%)!important}
+.prem .card{background:linear-gradient(160deg,#1b1610,#0d0a07)!important}.prem .card:nth-child(3n+2){background:linear-gradient(160deg,#2a1219,#0d0a07)!important}.prem .card:nth-child(3n){background:linear-gradient(160deg,#0f2a24,#0a0807)!important}
+/* intro v2 */
+#pi{background:radial-gradient(ellipse at 50% 42%,#1d4a3f 0,#0c1f1a 38%,#06100d 70%,#020504 100%)!important}
+#pi::before,#pi::after{display:none!important}
+#pi .beam{position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent 0 20%,rgba(232,207,154,.10) 25%,transparent 30% 70%,rgba(232,207,154,.08) 75%,transparent 80%);animation:spin 12s linear infinite}
+#pi .fr{position:absolute;inset:16px;border:1px solid rgba(217,184,120,.6);opacity:0;animation:fi 1.2s ease .2s forwards}
+#pi .fr::before{content:"";position:absolute;inset:6px;border:1px solid rgba(217,184,120,.25)}
+#pi .med{position:relative;width:min(62vw,250px);height:min(62vw,250px);margin-bottom:10px}
+#pi .med svg{position:absolute;inset:0;width:100%;height:100%;stroke:#e1c488}
+#pi .med .rg{animation:spin 30s linear infinite;transform-origin:center}
+#pi .med path,#pi .med circle{stroke-dasharray:1;stroke-dashoffset:1;animation:dr 2.4s ease forwards}
+#pi .med .c2 circle{animation-delay:.5s;stroke:#b9777f}#pi .med .sh path{animation-delay:1s;animation-duration:2s}
+#pi small{color:#e1c488;letter-spacing:.6em!important;animation-delay:2.1s!important}
+#pi h1{font-size:clamp(38px,10.5vw,64px)!important;animation:fi 1.4s ease 2.4s forwards,sp 2.4s ease 2.4s forwards,sh 2.2s linear 2.8s forwards!important}
+#pi .tag{font:italic 500 16px 'Cormorant Garamond',Georgia,serif;color:#cdb88a;letter-spacing:.2em;opacity:0;animation:fi 1s ease 3.4s forwards;margin-top:4px}
+#pi .rule{width:min(70vw,300px);height:1px;background:linear-gradient(90deg,transparent,#e1c488,transparent);transform:scaleX(0);animation:sx 1.4s ease 2.2s forwards;margin:6px 0}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes sx{to{transform:scaleX(1)}}
+</style>
+<script>
+(function(){
+const mo=new MutationObserver(()=>{const d=document.getElementById('pi');if(!d||d.dataset.v2)return;d.dataset.v2=1;const sk=d.querySelector('button');
+ const ring=(r,da)=>`<circle cx="100" cy="100" r="${r}" fill="none" stroke-width="1" pathLength="1"${da?` stroke-dasharray="${da}"`:''}/>`;
+ const dots=Array.from({length:36},(_,i)=>{const a=i*10*Math.PI/180;return `<circle cx="${(100+92*Math.cos(a)).toFixed(1)}" cy="${(100+92*Math.sin(a)).toFixed(1)}" r="1.1" fill="#e1c488" stroke="none" style="stroke-dasharray:0;stroke-dashoffset:0;animation:fi 1s ease ${1+i*.03}s both"/>`}).join('');
+ d.innerHTML='<div class="beam"></div><div class="fr"></div>';d.appendChild(sk);
+ d.insertAdjacentHTML('beforeend',`<div class="med"><svg class="rg" viewBox="0 0 200 200">${dots}</svg><svg viewBox="0 0 200 200"><g>${ring(84)}</g></svg><svg class="c2" viewBox="0 0 200 200">${ring(76)}</svg>
+ <svg class="sh" viewBox="0 0 200 200" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M100 52l-6-6c-3-7 5-10 9-6s-1 8-3 10M70 76l-26 14 8 18 14-7v50h68v-50l14 7 8-18-26-14c-4 9-12 13-30 13S74 85 70 76Z"/><path pathLength="1" d="M82 76c4 7 32 7 36 0M80 146h40"/></svg></div>
+ <small>Welcome to</small><div class="rule"></div><h1>Premium Closet</h1><div class="tag">Crafted · Limited · Yours</div>`)});
+mo.observe(document.body,{childList:true});
+})();
+</script>
+<!-- ===== CUSTOMER REVIEW SYSTEM ===== -->
+<style>
+.rs{color:var(--gold);letter-spacing:2px}.rs i{font-style:normal;color:#d9ccb0}
+.rt{display:inline-block;font:600 12px Inter,sans-serif;color:var(--gold4);background:linear-gradient(#fffaf0,#f3e7c9);border:1px solid #e0cfa5;border-radius:99px;padding:2px 9px;margin-bottom:4px}
+.prem .rt{background:#241c10;color:var(--champ);border-color:var(--gold)}
+.rvw{margin-top:22px}.rvs{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.rvs .big{font:700 52px/1 'Cormorant Garamond',Georgia,serif;color:var(--gold4)}
+.bars{flex:1;min-width:160px}.bars div{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--m)}.bars span.b{flex:1;height:7px;border-radius:9px;background:#eadfc6;overflow:hidden}.bars span.b i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--champ))}
+.rvf{margin:16px 0;padding:14px;border:1px dashed var(--gold2);border-radius:14px;background:rgba(255,250,238,.7)}
+.pick{font-size:30px;color:#d9ccb0;cursor:pointer;letter-spacing:4px;user-select:none}.pick b{color:var(--gold)}
+.rvi{padding:14px 0;border-top:1px solid #eadfc6}.rvi .h{display:flex;gap:10px;align-items:center}
+.av2{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#14110c,#4a3820);color:var(--champ);display:flex;align-items:center;justify-content:center;font-weight:700}
+.vb{font-size:11px;color:#1b5a4c;background:#e3efe9;border:1px solid #b9d6c9;border-radius:99px;padding:1px 8px;margin-left:6px}
+.rvi img.ph{max-width:140px;border-radius:12px;margin-top:8px;border:1px solid #e0cfa5}
+.rrp{margin:10px 0 0 14px;padding:8px 12px;border-left:3px solid var(--gold);background:#faf3e1;border-radius:0 10px 10px 0;font-size:14px}
+.rvi .act{display:flex;gap:8px;margin-top:8px}.rvi .act button{padding:4px 12px;font-size:12px}
+</style>
+<script>
+(function(){
+const R=reviewService,HK='tv_helpful';
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const rs=n=>`<span class="rs">${'★'.repeat(Math.round(n))}<i>${'★'.repeat(5-Math.round(n))}</i></span>`;
+window._rs=0;window._rp='';
+window.setRs=n=>{window._rs=n;document.querySelectorAll('.pick b').forEach((e,i)=>e.style.opacity=i<n?1:.25);const l=document.getElementById('rsl');if(l)l.textContent=['','Poor','Fair','Good','Very good','Excellent'][n]};
+window.rvPhoto=inp=>{const f=inp.files[0];if(!f)return;if(!/^image\//.test(f.type))return toast('Choose an image');const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,520/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);window._rp=c.toDataURL('image/jpeg',.6);document.getElementById('rpv').innerHTML='<img class="ph" src="'+window._rp+'">'};im.src=r.result};r.readAsDataURL(f)};
+window.sendRv=pid=>{const c=me();if(!c)return needLogin();const t=(document.getElementById('rvt').value||'').trim();
+ if(!window._rs)return toast('Please choose a star rating');if(t.length<5)return toast('Write a short review (at least 5 letters)');
+ if(DB.reviews.some(r=>r.pid==pid&&r.user==c.email))return toast('You already reviewed this product');
+ DB.reviews.push({id:uid(),pid,user:c.email,name:c.name,stars:window._rs,text:t,photo:window._rp,date:new Date().toISOString(),helpful:0,verified:DB.orders.some(o=>o.pid==pid&&o.mine)});
+ window._rs=0;window._rp='';storageService.save();toast('Thank you for your review!');route()};
+window.delRv=id=>{if(!confirm('Delete this review?'))return;DB.reviews=DB.reviews.filter(r=>r.id!=id);storageService.save();route()};
+window.helpRv=id=>{const h=ld(HK,[]);if(h.includes(id))return toast('You already marked this helpful');const r=DB.reviews.find(x=>x.id==id);if(!r)return;r.helpful=(r.helpful||0)+1;sv(HK,[...h,id]);storageService.save();route()};
+window.replyRv=id=>{const r=DB.reviews.find(x=>x.id==id);if(!r)return;const t=prompt('Reply to this review',r.reply?r.reply.text:'');if(t===null)return;r.reply=t.trim()?{text:t.trim(),date:new Date().toISOString()}:null;storageService.save();route()};
+function sec(id,p){const l=R.of(id).slice().reverse(),n=l.length,avg=R.avg(id),c=me(),mine=c&&l.find(r=>r.user==c.email),own=mySeller()&&mySeller().id==p.shopId;
+ const bars=[5,4,3,2,1].map(k=>{const q=l.filter(r=>r.stars==k).length;return `<div>${k}★<span class="b"><i style="width:${n?q/n*100:0}%"></i></span>${q}</div>`}).join('');
+ const form=mine?'':c?`<div class="rvf"><b>Write a review</b><div class="pick">${[1,2,3,4,5].map(i=>`<b onclick="setRs(${i})" style="opacity:.25">★</b>`).join('')} <span class="m" id="rsl" style="font-size:13px;letter-spacing:0"></span></div><textarea id="rvt" rows="3" placeholder="How was the fit, fabric and print?"></textarea><div class="row" style="align-items:center"><label class="btn o" style="cursor:pointer">Add photo<input type="file" accept="image/*" hidden onchange="rvPhoto(this)"></label><span id="rpv"></span></div><button style="margin-top:10px" onclick="sendRv('${id}')">Submit review</button></div>`
+ :`<div class="rvf"><span class="m">Login or sign up as a customer to write a review.</span> <a class="btn o" href="#/account">Login / Sign up</a></div>`;
+ const items=l.map(r=>`<div class="rvi"><div class="h"><div class="av2">${esc((r.name||'?')[0].toUpperCase())}</div><div><b>${esc(r.name||'Customer')}</b>${r.verified?'<span class="vb">✓ Verified buyer</span>':''}<br>${rs(r.stars)} <span class="m" style="font-size:12px">${new Date(r.date).toLocaleDateString()}</span></div></div><p style="margin:8px 0 0">${esc(r.text)}</p>${r.photo?`<img class="ph" src="${r.photo}" alt="Review photo">`:''}${r.reply?`<div class="rrp"><b>Seller reply</b><br>${esc(r.reply.text)}</div>`:''}<div class="act"><button class="o" onclick="helpRv('${r.id}')">Helpful (${r.helpful||0})</button>${own?`<button class="o" onclick="replyRv('${r.id}')">${r.reply?'Edit reply':'Reply'}</button>`:''}${(c&&r.user==c.email)||own?`<button class="d" onclick="delRv('${r.id}')">Delete</button>`:''}</div></div>`).join('');
+ return `<div class="box rvw"><h2>Customer reviews</h2>${n?`<div class="rvs"><div><div class="big">${avg.toFixed(1)}</div>${rs(avg)}<div class="m">${n} review${n>1?'s':''}</div></div><div class="bars">${bars}</div></div>`:'<p class="m">No reviews yet. Be the first to share your experience.</p>'}${form}${items}</div>`}
+const _p=V.p;V.p=function(id){const h=_p(id),p=productService.get(id);return p?h+sec(id,p):h};
+const _c=card;card=function(p){const h=_c(p),n=R.of(p.id).length;return n?h.replace('<div class="pad">',`<div class="pad"><span class="rt">★ ${R.avg(p.id).toFixed(1)} (${n})</span><br>`):h};
+route();
+})();
+</script>
+<!-- ===== COOKIES + PRIVACY ===== -->
+<style>
+#ck{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:900;max-width:560px;margin:0 auto;background:linear-gradient(135deg,#14110c,#2f2517);color:#f1dcab;border:1px solid var(--gold);border-radius:18px;padding:16px;box-shadow:0 20px 50px -14px rgba(0,0,0,.6);animation:ckin .5s ease}
+#ck b{font:600 20px 'Cormorant Garamond',Georgia,serif;display:block;margin-bottom:4px}#ck p{margin:0 0 12px;font-size:13px;line-height:1.5;color:#d8c79e}#ck a{color:#f1dcab;text-decoration:underline}
+#ck .row{gap:8px}#ck button{padding:9px 16px;font-size:13px}#ck button.o{background:transparent!important;color:#f1dcab!important;border:1px solid #8a6f3d!important}
+#ck .ps{border-top:1px solid #4a3d24;margin-top:10px;padding-top:10px;font-size:13px}#ck label{display:flex;gap:10px;align-items:flex-start;margin:6px 0;color:#d8c79e}#ck input{width:auto;margin:3px 0 0;accent-color:#c9a45a}
+@keyframes ckin{from{opacity:0;transform:translateY(20px)}}
+@media(min-width:721px){#ck{bottom:20px}}
+.legal{text-align:center;padding:18px 0 4px;font-size:13px}.legal a,.legal button.lk{color:var(--gold4);margin:0 10px;text-decoration:underline;background:none!important;border:0!important;padding:0;font-size:13px;display:inline;box-shadow:none!important}
+.pol h3{margin:20px 0 6px;color:var(--gold4)}.pol p,.pol li{line-height:1.7;font-size:15px}.pol ul{padding-left:20px}.pol .upd{font-size:13px}
+</style>
+<script>
+(function(){
+const CK='tv_consent',PREF=['tv_wish','tv_coupon','tv_helpful'];
+const gc=()=>{try{return localStorage.getItem(CK)}catch(e){return null}};
+/* optional "preferences" storage only persists if the visitor accepted */
+const gi=Storage.prototype.getItem,si=Storage.prototype.setItem;
+Storage.prototype.getItem=function(k){return PREF.includes(k)&&gc()!='all'?sessionStorage.getItem(k):gi.call(this,k)};
+Storage.prototype.setItem=function(k,v){if(PREF.includes(k)&&gc()!='all')return sessionStorage.setItem(k,v);return si.call(this,k,v)};
+function set(v){try{si.call(localStorage,CK,v)}catch(e){}if(v=='all')PREF.forEach(k=>{const s=sessionStorage.getItem(k);if(s!==null)si.call(localStorage,k,s)});const b=document.getElementById('ck');if(b)b.remove();toast(v=='all'?'Preferences saved':'Only essential storage will be used')}
+window.ckAll=()=>set('all');window.ckEss=()=>set('essential');
+window.ckSave=()=>set(document.getElementById('ckp').checked?'all':'essential');
+window.ckOpen=(manage)=>{const o=document.getElementById('ck');if(o)o.remove();const d=document.createElement('div');d.id='ck';
+ d.innerHTML=`<b>Cookies &amp; privacy</b><p>Teevora keeps your cart, orders and login in your browser's storage so the shop works. We do not use advertising or tracking cookies. You can also allow optional preferences (wishlist, coupon, helpful votes). <a href="#/privacy">Privacy Policy</a> · <a href="#/cookies">Cookie Policy</a></p>
+ ${manage?`<div class="ps"><label><input type="checkbox" checked disabled> <span><b style="font:600 14px Inter,sans-serif;display:inline">Essential</b> Cart, orders, account and shop data. Always on.</span></label><label><input type="checkbox" id="ckp" ${gc()=='all'?'checked':''}> <span><b style="font:600 14px Inter,sans-serif;display:inline">Preferences</b> Remember your wishlist, coupon and helpful votes on this device.</span></label></div><div class="row" style="margin-top:12px"><button onclick="ckSave()">Save choices</button></div>`
+ :`<div class="row"><button onclick="ckAll()">Accept all</button><button class="o" onclick="ckEss()">Essential only</button><button class="o" onclick="ckOpen(true)">Manage</button></div>`}`;document.body.appendChild(d)};
+if(!gc())setTimeout(()=>ckOpen(false),900);
+/* policy pages */
+const P=(t,body)=>`<div class="box pol"><h2>${t}</h2><p class="m upd">Last updated: October 2026</p>${body}<p><a class="btn o" href="#/home">Back to shop</a></p></div>`;
+V.privacy=()=>P('Privacy Policy',`<p>Teevora ("we", "us") is a t-shirt shop. This policy explains what information we handle and why. We do not sell your personal information.</p>
+<h3>1. Information we collect</h3><ul><li><b>Orders:</b> name, phone number, delivery address, city, state, PIN code and delivery notes that you enter at checkout.</li><li><b>Seller account:</b> there is only one account on this website, used by the shop owner. Customers do not need or create accounts.</li><li><b>Reviews:</b> your name, star rating, written review and any photo you choose to add.</li><li><b>Device storage:</b> your cart, wishlist and coupon choice (see Cookie Policy).</li></ul>
+<h3>2. How we use it</h3><ul><li>To process, confirm and deliver your order, and to contact you about it.</li><li>To show your reviews and let the seller reply.</li><li>To keep your cart and account working.</li></ul>
+<h3>3. Where your data is kept</h3><p>On this website, your data is stored in your own browser (local storage). It stays on your device and is not sent to a server by the site itself. If you clear your browser data, it is removed.</p>
+<h3>4. Sharing</h3><ul><li><b>The seller:</b> when you tap "Order on WhatsApp" or "Contact Seller", the details in the message are sent to the seller through WhatsApp, which is run by Meta and has its own privacy policy.</li><li><b>Google Fonts:</b> the site loads fonts from Google, which may receive your IP address when the page loads.</li><li><b>Seller alerts:</b> the seller may use CallMeBot to receive login alerts. This does not include customer details.</li><li>We do not use advertising or analytics services and do not sell or rent your data.</li></ul>
+<h3>5. How long we keep it</h3><p>Data stays on your device until you delete it or clear your browser. The seller keeps order details they receive for as long as needed to fulfil orders and meet legal or accounting duties.</p>
+<h3>6. Your choices and rights</h3><p>You can ask the seller to correct or delete the personal information they hold about you, and you can delete your own reviews on the product page. Depending on where you live, laws such as India's Digital Personal Data Protection Act, 2023 may give you further rights. Contact us using the Contact Seller (WhatsApp) button.</p>
+<h3>7. Security</h3><p>We take reasonable care, but no website or storage is completely secure. Please do not share your password with anyone and use a device you trust.</p>
+<h3>8. Children</h3><p>This shop is not meant for children under 18 to buy without a parent or guardian.</p>
+<h3>9. Changes</h3><p>We may update this policy. The date above shows the latest version.</p>`);
+V.cookies=()=>P('Cookie Policy',`<p>Teevora does not set advertising, tracking or analytics cookies. We use your browser's local storage, which works like cookies, to run the shop.</p>
+<h3>Essential (always on)</h3><ul><li>Your cart and checkout details.</li><li>Orders placed on this device.</li><li>Seller login session and shop data.</li><li>Your cookie choice.</li></ul>
+<h3>Preferences (only if you accept)</h3><ul><li>Wishlist, applied coupon and the reviews you marked helpful. If you choose Essential only, these last just for the current visit.</li></ul>
+<h3>Third parties</h3><p>Google Fonts and WhatsApp links are provided by other companies and may set their own technical data. See their policies for details.</p>
+<h3>Change your choice</h3><p><button onclick="ckOpen(true)">Cookie settings</button></p>`);
+/* legal links on every page + checkout consent note */
+const bar='<div class="legal"><a href="#/privacy">Privacy Policy</a><a href="#/cookies">Cookie Policy</a><button class="lk" onclick="ckOpen(true)">Cookie settings</button></div>';
+const app=document.getElementById('app');
+new MutationObserver(()=>{if(app.querySelector('.legal'))return;app.insertAdjacentHTML('beforeend',bar)}).observe(app,{childList:true});
+const _co=V.checkout;V.checkout=function(){return _co().replace('<h2>Checkout (guest allowed)</h2>','<h2>Checkout (guest allowed)</h2><p class="m" style="margin-top:-6px">By placing an order you agree to our <a href="#/privacy" style="text-decoration:underline">Privacy Policy</a>.</p>')};
+route();
+})();
+</script>
+<!-- ===== LOGIN SECURITY ===== -->
+<script>
+(function(){
+const enc=new TextEncoder(),b64=u=>btoa(String.fromCharCode(...u)),ub=x=>Uint8Array.from(atob(x),c=>c.charCodeAt(0)),ITER=600000,NS='Secure connection (https) is required for login.';
+const subtle=(window.crypto&&crypto.subtle)||null;
+async function kdf(pw,salt,it){const k=await subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveBits']);return new Uint8Array(await subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt,iterations:it},k,256))}
+async function mk(pw){const sl=crypto.getRandomValues(new Uint8Array(16));return{v:2,s:b64(sl),i:ITER,h:b64(await kdf(pw,sl,ITER))}}
+async function chk(pw,r){if(!r||r.v!==2){await kdf(pw,new Uint8Array(16),ITER);return false}const x=await kdf(pw,ub(r.s),r.i),y=ub(r.h);let d=x.length^y.length;for(let i=0;i<x.length;i++)d|=x[i]^y[i];return d===0}
+const teq=(a,b)=>{a=String(a);b=String(b);let d=a.length^b.length;for(let i=0;i<Math.max(a.length,b.length);i++)d|=(a.charCodeAt(i)||0)^(b.charCodeAt(i)||0);return d===0};
+const COMMON=['password','passw0rd','qwerty','abc123','letmein','welcome','admin','iloveyou','monkey','dragon','football','123456','111111','000000','teeverse','teevora','saarpan','tshirt'];
+function strong(pw,ctx,min){pw=pw||'';if(pw.length<min)return'Use at least '+min+' characters';if(pw.length>128)return'Password is too long (max 128)';
+ const cls=[/[a-z]/,/[A-Z]/,/\d/,/[^A-Za-z0-9]/].filter(r=>r.test(pw)).length;if(pw.length<16&&cls<3)return'Mix upper & lower case, numbers and symbols, or use a 16+ character passphrase';
+ const l=pw.toLowerCase();if(COMMON.some(w=>l.includes(w))||(ctx||[]).some(w=>w&&w.length>3&&l.includes(String(w).toLowerCase())))return'Too easy to guess. Avoid common words, your name or the shop name';
+ if(/^(.)\1+$/.test(pw)||/(0123|1234|2345|3456|4567|5678|6789|abcd|qwer)/i.test(pw))return'Avoid simple sequences like 1234 or abcd';return''}
+window.pwMeter=v=>{const e=document.getElementById('str2');if(!e)return;const n=[v.length>=12,v.length>=16,/[a-z]/.test(v)&&/[A-Z]/.test(v),/\d/.test(v),/[^A-Za-z0-9]/.test(v)].filter(Boolean).length;e.textContent=['Very weak','Weak','Fair','Good','Strong','Excellent'][v?n:0];e.style.color=n>=4?'#1b5a4c':n>=3?'#8a6a2f':'#a33'};
+/* escalating lockout: 1 min, 5 min, 15 min, 1 hour */
+const LK='tv_lock2',STEP=[60,300,900,3600];
+const lget=()=>{try{return JSON.parse(localStorage.getItem(LK))||{}}catch(e){return{}}},lset=o=>{try{localStorage.setItem(LK,JSON.stringify(o))}catch(e){}};
+const left=k=>{const r=lget()[k];return r&&r.t>Date.now()?Math.ceil((r.t-Date.now())/1000):0};
+const fail=k=>{const o=lget(),r=o[k]||{n:0,l:0,t:0};r.n++;if(r.n>=5){r.t=Date.now()+STEP[Math.min(r.l,3)]*1000;r.l++;r.n=0}o[k]=r;lset(o)};
+const okk=k=>{const o=lget();delete o[k];lset(o)};
+const fmt=s=>s>=60?Math.ceil(s/60)+' min':s+' s';
+const wait=k=>{const w=left(k);return w?'Too many attempts. Try again in '+fmt(w):''};
+/* seller */
+authService.loginSeller=async function(pw){if(!subtle)return NS;pw=(pw||'').trim();let m=wait('seller');if(m)return m;const s=DB.shops[0];let ok=false;
+ if(typeof s.pwh==='string'){ok=teq(pwHash(pw),s.pwh);if(ok){s.pwh=await mk(pw);s.weak=strong(pw,[s.username],12)?1:0}}else ok=await chk(pw,s.pwh);
+ if(!ok){fail('seller');return'Incorrect password'}okk('seller');DB.session={...DB.session,seller:s.id};storageService.save();notifyLogin();if(s.weak)setTimeout(()=>toast('Please set a stronger password in Settings'),900);return null};
+window.doLogin=async function(){const b=document.querySelector('.lock button'),er=$('err');if(!subtle)return er.textContent=NS;const s=DB.shops[0],pw=$('lp').value.trim();let m=wait('seller');if(m)return er.textContent=m;
+ if(b){b.disabled=true;b.textContent='Checking…'}try{
+ if(!s.pwh){const e=strong(pw,[s.username,s.name],12);if(e)return er.textContent=e;if(pw!==$('lp2').value.trim())return er.textContent='Passwords do not match';
+  s.pwh=await mk(pw);DB.session={...DB.session,seller:s.id};storageService.save();notifyLogin();toast('Password created');return location.hash='#/dash/overview'}
+ const e=await authService.loginSeller(pw);e?er.textContent=e:(location.hash='#/dash/overview',route())}finally{if(b){b.disabled=false;b.textContent=s.pwh?'Login':'Create password'}}};
+window.savePw=async function(){const s=DB.shops[0],er=$('err'),c=$('cp0').value.trim(),n1=$('cp1').value.trim(),n2=$('cp2').value.trim();if(!subtle)return er.textContent=NS;let m=wait('seller');if(m)return er.textContent=m;
+ const ok=typeof s.pwh==='string'?teq(pwHash(c),s.pwh):await chk(c,s.pwh);if(!ok){fail('seller');return er.textContent='Current password is wrong'}
+ const e=strong(n1,[s.username,s.name],12);if(e)return er.textContent=e;if(n1===c)return er.textContent='Choose a different password';if(n1!==n2)return er.textContent='New passwords do not match';
+ s.pwh=await mk(n1);s.weak=0;okk('seller');storageService.save();toast('Password updated');route()};
+/* customers: never store plain-text passwords */
+authService.registerCustomer=async function(name,email,pw){if(!subtle)return NS;email=(email||'').trim();if(!name.trim()||!/^\S+@\S+\.\S+$/.test(email))return'Enter your name and a valid email';
+ const e=strong(pw,[email.split('@')[0],name],8);if(e)return e;if(DB.customers.some(c=>c.email.toLowerCase()==email.toLowerCase()))return'Account exists – please login';
+ DB.customers.push({name:name.trim(),email,pwh:await mk(pw)});DB.session={...DB.session,customer:email};storageService.save();return null};
+authService.loginCustomer=async function(email,pw){if(!subtle)return NS;email=(email||'').trim();const k='c:'+email.toLowerCase(),m=wait(k);if(m)return m;const c=DB.customers.find(x=>x.email.toLowerCase()==email.toLowerCase());let ok=false;
+ if(c&&c.pwh)ok=await chk(pw,c.pwh);else if(c&&typeof c.pw==='string'){ok=teq(c.pw,pw);if(ok){c.pwh=await mk(pw);delete c.pw}}else await chk(pw,null);
+ if(!ok){fail(k);return'Invalid email or password'}okk(k);DB.session={...DB.session,customer:c.email};storageService.save();return null};
+window.custAuth=async function(login){const e=login?await authService.loginCustomer($('ae').value,$('ap').value):await authService.registerCustomer($('an').value,$('ae').value,$('ap').value);e?$('err').textContent=e:(toast('Welcome!'),route())};
+(async()=>{if(!subtle)return;let ch=0;for(const c of DB.customers)if(typeof c.pw==='string'&&!c.pwh){c.pwh=await mk(c.pw);delete c.pw;ch=1}if(ch)storageService.save()})();
+/* screens */
+const _d=V['seller-login'];V['seller-login']=function(t){let h=_d(t);const s=DB.shops[0];if(mySeller()||!s)return h;
+ if(!s.pwh)h=h.replace(/<input id="lp"[^>]*>/,'<p class="m"><b>First-time setup:</b> create a strong password for your seller account. Use 12+ characters or a long passphrase.</p><input id="lp" type="password" placeholder="New password (12+ characters)" autocomplete="new-password" oninput="pwMeter(this.value)" onkeydown="if(event.key==\'Enter\')doLogin()"><input id="lp2" type="password" placeholder="Repeat password" autocomplete="new-password"><p class="m">Strength: <b id="str2">–</b></p>');
+ return h.replace('autocomplete="off"','autocomplete="current-password"')};
+const _d3=V.dash;V.dash=function(t){return _d3(t).replace('New password (8+ characters)','New password (12+ characters)')};
+const _ac=V.account;V.account=function(){return _ac().replace(/6\+/g,'8+')};
+/* auto-logout after 15 minutes without activity */
+const IDLE=15*60e3,AK='tv_act';let tt=0;const touch=()=>{const n=Date.now();if(n-tt>8000){tt=n;try{localStorage.setItem(AK,n)}catch(e){}}};
+['click','keydown','touchstart','scroll'].forEach(e=>addEventListener(e,touch,{passive:true}));
+const idle=()=>mySeller()&&Date.now()-(+localStorage.getItem(AK)||0)>IDLE;
+if(idle()){DB.session={};storageService.save()}touch();
+setInterval(()=>{if(idle()){authService.logout();toast('Logged out after 15 minutes of inactivity');route()}},20000);
+route();
+})();
+</script>
+<!-- ===== SINGLE OWNER ACCOUNT ===== -->
+<script>
+(function(){
+/* Only ONE account exists: the shop owner. Password is stored only as a PBKDF2 hash (never plain text). */
+const OWNER_PW={"v":2,"s":"vhau4rS/nnPsndQWdgb9ZA==","i":600000,"h":"s+3ZMYKizbm87P9bBwUQLlUhPuT12xvxy9O36G5iXwo="};
+const s=DB.shops[0];s.pwh=OWNER_PW;s.weak=0;s.email=OWNER.email;storageService.save();
+const CLOSED='Only one seller account exists. New accounts cannot be created.';
+authService.registerSeller=()=>CLOSED;
+authService.registerCustomer=async()=>'Accounts are not available. You can order as a guest.';
+V['seller-reg']=()=>`<div class="box"><h2>Not available</h2><p class="m">${CLOSED}</p><a class="btn" href="#/seller-login">Seller Login</a></div>`;
+V.account=()=>`<div class="box"><h2>No account needed</h2><p class="m">You can browse and order as a guest. Customer accounts are not available.</p><a class="btn" href="#/home">Back to shop</a></div>`;
+window.needLogin=()=>toast('Accounts are not available. You can order as a guest.');
+/* no password change screen (password is fixed by the owner file) and no first-time setup */
+const _d=V.dash;V.dash=function(t){return _d(t).replace(/<div class="box"><h2>Change password<\/h2>[\s\S]*?Update password<\/button><\/div>/,'')};
+/* guests can leave a review with a name (no account) */
+window.sendRv=function(pid){const t=(document.getElementById('rvt').value||'').trim(),nm=((document.getElementById('rvn')||{}).value||'').trim();
+ if(!window._rs)return toast('Please choose a star rating');if(nm.length<2)return toast('Please enter your name');if(t.length<5)return toast('Write a short review (at least 5 letters)');
+ let dv;try{dv=localStorage.getItem('tv_dev')||(localStorage.setItem('tv_dev',uid()+uid()),localStorage.getItem('tv_dev'))}catch(e){dv='x'}const u='guest:'+dv;
+ if(DB.reviews.some(r=>r.pid==pid&&r.user==u))return toast('You already reviewed this product on this device');
+ DB.reviews.push({id:uid(),pid,user:u,name:nm,stars:window._rs,text:t,photo:window._rp,date:new Date().toISOString(),helpful:0,verified:DB.orders.some(o=>o.pid==pid&&o.mine)});
+ window._rs=0;window._rp='';storageService.save();toast('Thank you for your review!');route()};
+const _p=V.p;V.p=function(id){const h=_p(id);const g=h.indexOf('Login or sign up as a customer to write a review.');if(g<0)return h;
+ const form=`<div class="rvf"><b>Write a review</b><div class="pick">${[1,2,3,4,5].map(i=>`<b onclick="setRs(${i})" style="opacity:.25">★</b>`).join('')} <span class="m" id="rsl" style="font-size:13px;letter-spacing:0"></span></div><input id="rvn" placeholder="Your name" maxlength="40"><textarea id="rvt" rows="3" placeholder="How was the fit, fabric and print?"></textarea><div class="row" style="align-items:center"><label class="btn o" style="cursor:pointer">Add photo<input type="file" accept="image/*" hidden onchange="rvPhoto(this)"></label><span id="rpv"></span></div><button style="margin-top:10px" onclick="sendRv('${id}')">Submit review</button></div>`;
+ return h.replace(/<div class="rvf"><span class="m">Login or sign up[\s\S]*?Login \/ Sign up<\/a><\/div>/,form)};
+route();
+})();
+</script>
+</body></html>
